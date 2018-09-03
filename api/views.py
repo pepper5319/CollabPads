@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics, permissions
 from .models import ListObject
-from .serializers import ListSerializer
+from .serializers import *
 from .permissions import *
 
 
