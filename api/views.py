@@ -36,15 +36,12 @@ ITEM VIEWS
 """
 class CreateItemView(generics.ListCreateAPIView):
     serializer_class = ItemSerializer
-    permission_classes = (permissions.IsAuthenticated, IsOwner, IsAssignedToList)
+    permission_classes = (permissions.IsAuthenticated, IsOwner, IsAssignedToList, IsItemAllowed)
 
     def get_queryset(self):
             list_id = self.request.META['HTTP_LIST_ID']
             listItems = Item.objects.filter(assigned_list=list_id)
-            listItems = listItems.filter(assigned_list__owner=self.request.user)
-            listItemsCollab = Item.objects.filter(assigned_list=list_id)
-            listItemsCollab = listItemsCollab.filter(assigned_list__collaborators__contains=self.request.user.username)
-            return listItemsCollab | listItems
+            return listItems
 
     def perform_create(self, serializer):
             serializer.save(owner=self.request.user, assigned_list=ListObject.objects.get(static_id=self.request.META['HTTP_LIST_ID']))
