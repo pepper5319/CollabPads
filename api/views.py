@@ -11,7 +11,6 @@ from .permissions import *
 LIST VIEWS
 """
 class GetListsView(generics.ListCreateAPIView):
-    queryset = ListObject.objects.all()
     serializer_class = ListSerializer
 
     permission_classes = (permissions.IsAuthenticated, IsListAllowed)
@@ -23,6 +22,20 @@ class GetListsView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
             serializer.save(owner=self.request.user)
+
+class GetSharedListView(generics.ListAPIView):
+    """This class defines the create behavior of our rest api."""
+    serializer_class = ListSerializer
+    permission_classes = (permissions.IsAuthenticated, IsListAllowed)
+
+    def get_queryset(self):
+            """
+            This view should return a list of all the purchases
+            for the currently authenticated user.
+            """
+            user = self.request.user
+            collabLists =ListObject.objects.filter(collaborators__contains=user.username)
+            return collabLists
 
 class GetListDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ListObject.objects.all()
@@ -36,7 +49,7 @@ ITEM VIEWS
 """
 class CreateItemView(generics.ListCreateAPIView):
     serializer_class = ItemSerializer
-    permission_classes = (permissions.IsAuthenticated, IsOwner, IsAssignedToList, IsItemAllowed)
+    permission_classes = (permissions.IsAuthenticated, IsOwner, IsItemAllowed)
 
     def get_queryset(self):
             list_id = self.request.META['HTTP_LIST_ID']
@@ -52,4 +65,4 @@ class DetailsItemView(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
-    permission_classes = (permissions.IsAuthenticated, IsOwner, IsAssignedToList)
+    permission_classes = (permissions.IsAuthenticated, IsOwner)

@@ -5,7 +5,8 @@ class IsListAllowed(BasePermission):
     def has_object_permission(self, request, view, obj):
         if isinstance(obj, ListObject):
             if(str(request.user.username) in str(obj.collaborators)):
-                return True
+                if(request.method == "GET" or request.method == "PATCH"):
+                    return True
             return obj.owner == request.user
         return obj.owner == request.user
 
@@ -24,7 +25,3 @@ class IsOwner(BasePermission):
         if isinstance(obj, Item):
             return obj.owner == request.user
         return obj.owner == request.user
-
-class IsAssignedToList(BasePermission):
-    def has_object_permission(self, request, view, obj):
-        return obj.assigned_list.static_id == request.META['HTTP_LIST_ID']
