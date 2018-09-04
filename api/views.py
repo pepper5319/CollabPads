@@ -65,4 +65,4 @@ class DetailsItemView(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
-    permission_classes = (permissions.IsAuthenticated, IsOwner)
+    permission_classes = (permissions.IsAuthenticated, IsItemDetailAllowed)
