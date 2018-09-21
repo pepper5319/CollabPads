@@ -16,12 +16,19 @@ class GetListsView(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticated, IsListAllowed)
 
     def get_queryset(self):
-            user = self.request.user
-            ownedLists = ListObject.objects.filter(owner=user)
-            return ownedLists
+        user = self.request.user
+        ownedLists = ListObject.objects.filter(owner=user)
+        return ownedLists
 
     def perform_create(self, serializer):
-            serializer.save(owner=self.request.user)
+        newList = serializer.save(owner=self.request.user)
+        if(self.request.data.collaborators):
+            for collab in self.request.data.collaborators:
+                user = User.objects.get(username=collab);
+                if(user.exists()):
+                    newList.collaborators.add(user)
+            newList.collaborators.save()
+
 
 class GetSharedListView(generics.ListAPIView):
     """This class defines the create behavior of our rest api."""
