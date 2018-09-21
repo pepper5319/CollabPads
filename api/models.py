@@ -8,7 +8,7 @@ class ListObject(models.Model):
     owner = models.ForeignKey('auth.User',  # ADD THIS FIELD
         related_name='lists',
         on_delete=models.CASCADE)
-    collaborators = models.ManyToManyField(User)
+    collaborators = models.ManyToManyField(User, blank=True)
 
     def __str__(self):
         return "{}".format(self.static_id)
