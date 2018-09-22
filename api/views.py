@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from rest_framework import generics, permissions
-from .models import ListObject
+from .models import ListObject, ListrUser
 from .serializers import *
 from .permissions import *
-
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -22,12 +22,15 @@ class GetListsView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         newList = serializer.save(owner=self.request.user)
-        if(self.request.data.collaborators):
-            for collab in self.request.data.collaborators:
-                user = User.objects.get(username=collab);
-                if(user.exists()):
+        if(self.request.data['collabs']):
+            for collab in self.request.data['collabs']:
+                try:
+                    user = ListrUser.objects.get(username=collab);
                     newList.collaborators.add(user)
-            newList.collaborators.save()
+                except ListrUser.DoesNotExist:
+                    print("User %s does not exists" % (collab))
+
+            newList.save()
 
 
 class GetSharedListView(generics.ListAPIView):
@@ -41,7 +44,7 @@ class GetSharedListView(generics.ListAPIView):
             for the currently authenticated user.
             """
             user = self.request.user
-            collabLists =ListObject.objects.filter(collaborators__contains=user.username)
+            collabLists = ListObject.objects.filter(collaborators__id=user.id)
             return collabLists
 
 class GetListDetail(generics.RetrieveUpdateDestroyAPIView):
