@@ -5,8 +5,7 @@ from .models import ListObject, Item, ListrUser
 class IsListAllowed(BasePermission):
     def has_object_permission(self, request, view, obj):
         if isinstance(obj, ListObject):
-            print("IS OBJECT")
-            if(request.user in obj.collaborators_set.all()):
+            if(request.user in obj.collaborators.all()):
                 if(request.method == "GET" or request.method == "PATCH"):
                     return True
             return obj.owner == request.user
