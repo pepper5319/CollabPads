@@ -1,11 +1,12 @@
 from rest_framework.permissions import BasePermission
-from .models import ListObject, Item
+from .models import ListObject, Item, ListrUser
 
 #Is allowed to view list
 class IsListAllowed(BasePermission):
     def has_object_permission(self, request, view, obj):
         if isinstance(obj, ListObject):
-            if(str(request.user.username) in str(obj.collaborators)):
+            print("IS OBJECT")
+            if(request.user in obj.collaborators_set.all()):
                 if(request.method == "GET" or request.method == "PATCH"):
                     return True
             return obj.owner == request.user
@@ -27,7 +28,7 @@ class IsItemAllowed(BasePermission):
         if(listId):
             currentList = ListObject.objects.get(static_id=listId)
             if(currentList):
-                return request.user.username == currentList.owner.username or request.user.username in str(currentList.collaborators)
+                return request.user.username == currentList.owner.username or request.user in currentList.collaborators.all()
             return False
         return False
 
