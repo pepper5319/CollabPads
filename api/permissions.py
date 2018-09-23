@@ -17,7 +17,7 @@ class IsItemDetailAllowed(BasePermission):
         if isinstance(obj, Item):
             currentList = ListObject.objects.get(static_id=obj.assigned_list)
             if(currentList):
-                return request.user.username == currentList.owner.username or request.user.username in str(currentList.collaborators)
+                return request.user.username == currentList.owner.username or request.user in currentList.collaborators.all()
             return False
         return False
 
