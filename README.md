@@ -1,4 +1,4 @@
-# List_r
+# CollabPads
 A collaborative List Maker.
 ## Set up
 Make sure you have pip and Python 3.6+:
