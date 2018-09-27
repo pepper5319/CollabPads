@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from rest_framework import generics, permissions
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from .models import ListObject, ListrUser
 from .serializers import *
 from .permissions import *
 from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
 
 # Create your views here.
 
@@ -53,7 +56,6 @@ class GetListDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (permissions.IsAuthenticated, IsListAllowed)
 
 
-
 """
 ITEM VIEWS
 """
@@ -76,3 +78,30 @@ class DetailsItemView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
     permission_classes = (permissions.IsAuthenticated, IsItemDetailAllowed)
+
+    def put(self, request, pk):
+        if(pk):
+            currentItem = Item.objects.get(static_id=pk)
+            if(currentItem and self.request.data['liked_users']):
+                for collab in self.request.data['liked_users']:
+                    try:
+                        user = ListrUser.objects.get(username=collab);
+                        if user not in currentItem.liked_users.all():
+                            currentItem.liked_users.add(user)
+                    except ListrUser.DoesNotExist:
+                        print("User %s does not exists" % (collab))
+
+                currentItem.save()
+
+            return Response("Updated List %s" % (pk))
+
+class UserView(generics.ListAPIView):
+    """View to list the user queryset."""
+    queryset = ListrUser.objects.all()
+    serializer_class = UserSerializer
+
+
+class CurrentUserView(APIView):
+    def get(self, request):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)

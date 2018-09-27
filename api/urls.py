@@ -9,5 +9,7 @@ urlpatterns = [
     path('auth/register/', include('rest_auth.registration.urls')),
     path('items/', CreateItemView.as_view(), name='itemcreate'),
     path('items/<pk>/', DetailsItemView.as_view(), name='itemdetails'),
+    path('users/', CurrentUserView.as_view(), name="user"),
 ]
+
 urlpatterns = format_suffix_patterns(urlpatterns)
