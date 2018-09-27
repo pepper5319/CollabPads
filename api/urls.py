@@ -1,4 +1,6 @@
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 from rest_framework.urlpatterns import format_suffix_patterns
 from .views import *
 urlpatterns = [
@@ -10,6 +12,6 @@ urlpatterns = [
     path('items/', CreateItemView.as_view(), name='itemcreate'),
     path('items/<pk>/', DetailsItemView.as_view(), name='itemdetails'),
     path('users/', CurrentUserView.as_view(), name="user"),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns = format_suffix_patterns(urlpatterns)
