@@ -82,18 +82,21 @@ class DetailsItemView(generics.RetrieveUpdateDestroyAPIView):
     def put(self, request, pk):
         if(pk):
             currentItem = Item.objects.get(static_id=pk)
-            if(currentItem and self.request.data['liked_users']):
-                for collab in self.request.data['liked_users']:
-                    try:
-                        user = ListrUser.objects.get(username=collab);
-                        if user not in currentItem.liked_users.all():
-                            currentItem.liked_users.add(user)
-                    except ListrUser.DoesNotExist:
-                        print("User %s does not exists" % (collab))
-
+            if(currentItem):
+                if(len(self.request.data['liked_users']) > 0):
+                    print(currentItem.liked_users)
+                    for collab in self.request.data['liked_users']:
+                        try:
+                            user = ListrUser.objects.get(username=collab);
+                            if user not in currentItem.liked_users.all():
+                                currentItem.liked_users.add(user)
+                        except ListrUser.DoesNotExist:
+                            print("User %s does not exists" % (collab))
+                else:
+                    currentItem.liked_users.remove(request.user)
                 currentItem.save()
 
-            return Response("Updated List %s" % (pk))
+            return Response('Updated List {}'.format(pk))
 
 class UserView(generics.ListAPIView):
     """View to list the user queryset."""
