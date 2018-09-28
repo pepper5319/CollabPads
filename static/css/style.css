@@ -434,9 +434,9 @@ a {
     color: #1abc9c; }
 
 /*
-// Fonts 
+// Fonts
 h1,
-h1 a,  
+h1 a,
 h2,
 h2 a,
 h3,
@@ -5464,29 +5464,29 @@ span.rec-by {
             margin: 0;
             padding: 0;
         }
-        
+
         .twitter-widget li {
             list-style: none;
             clear: both;
         }
-        
+
         .twitter-widget li img,
         .twitter-widget li .tweets_txt {
             float: left;
             margin-bottom: 10px;
         }
-        
+
         .twitter-widget li img {
             -webkit-border-radius: 30px;
             -moz-border-radius: 30px;
             border-radius: 30px;
         }
-        
+
         .twitter-widget li .tweets_txt {
             width: 350px;
             margin-left: 10px;
         }
-        
+
         .twitter-widget li .tweets_txt span {
             font-style: italic;
             color: #666;
@@ -6242,12 +6242,12 @@ span.rec-by {
 	&.title-center:after {
 		margin: 30px auto 0;
 	}
-    
-    
 
-    
-    
-    
+
+
+
+
+
 }*/
 .heading.heading-light,
 .text-light .heading,
@@ -8158,7 +8158,6 @@ body.device-xxs hr.space-xxlg, body.device-xs hr.space-xxlg {
   top: -13px !important; }
 
 .triangle-divider-bottom {
-  background-image: url("../images/triangle-divider-down.png");
   background-position: left center;
   background-repeat: repeat-x;
   bottom: 0;
@@ -8167,7 +8166,6 @@ body.device-xxs hr.space-xxlg, body.device-xs hr.space-xxlg {
   width: 100%; }
 
 .triangle-divider-top {
-  background-image: url("../images/triangle-divider-top.png");
   background-position: left center;
   background-repeat: repeat-x;
   top: 0;
@@ -8325,7 +8323,6 @@ select {
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
   appearance: none !important;
-  background-image: url(../images/dropdown-arrow.png);
   background-repeat: no-repeat;
   background-position: right center;
   padding: 6px 18px;
@@ -10363,16 +10360,12 @@ section[data-parallax-image] {
   background-color: #101010 !important; }
 
 .background-pattern {
-  background-image: url(/images/overlay-pattern/gplay.png); }
 
 .background-pattern-1 {
-  background-image: url(/images/overlay-pattern/3px-tile.png); }
 
 .background-pattern-2 {
-  background-image: url(/images/overlay-pattern/asfalt-dark.png); }
 
 .background-pattern-3 {
-  background-image: url(/images/overlay-pattern/axiom-pattern.png); }
 
 .shadow {
   box-shadow: 0 4px 16px #e2e2e2; }
@@ -13139,7 +13132,6 @@ a.toggle-item:active {
   margin-left: -100px; }
 
 .portfolio-item .new-badge {
-  background-image: url("../preview/images/new-badge.png");
   background-position: 0 0;
   background-repeat: no-repeat;
   height: 61px;
@@ -13410,9 +13402,9 @@ footer.background-grey .copyright-content {
     color: #fff; }
 
 /*.widget-tags .tags a {
-    
-   
-    
+
+
+
     font-size: 11px;
     letter-spacing: 1px;
 
@@ -13649,4 +13641,3 @@ body.device-xs .col-md-3 .flickr-widget img {
   color: #1abc9c !important; }
 
 /*# sourceMappingURL=colors.css.map */
-
