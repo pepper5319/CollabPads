@@ -1,0 +1,101 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Woot Poot" />
+    <meta name="description" content="CollabPads">
+    <!-- Document title -->
+    <title>CollabPads - Create and Share Lists</title>
+    <!-- Stylesheets & Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <link href="{% static 'css/plugins.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+
+    <!-- Template color -->
+	<link href="{% static 'css/color-variations/green.css' %}" rel="stylesheet" type="text/css" media="screen" title="green">
+    </head>
+<body><noscript>You need to enable JavaScript to run this app.</noscript>
+
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Header -->
+        <header id="header" class="header-transparent dark">
+    <div id="header-wrap">
+                <div class="container">
+                    <!--Logo-->
+                    <div id="logo">
+                        <a href="/" class="logo">
+                            <h5>CollabPads</h5>
+                        </a>
+                    </div>
+                    <!--End: Logo-->
+                    <!--Navigation Resposnive Trigger-->
+                    <div id="mainMenu-trigger">
+                        <button class="lines-button x"> <span class="lines"></span> </button>
+                    </div>
+                    <!--end: Navigation Resposnive Trigger-->
+
+                    <!--Navigation-->
+                    <div id="mainMenu" class="light">
+                        <div class="container">
+                            <nav>
+                                <ul>
+                                    <li><a href="index.html">Home</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <!--end: Navigation-->
+                </div>
+            </div>
+        </header>
+        <!-- end: Header -->
+
+        <!-- SECTION IMAGE FULLSCREEN -->
+        <section class="fullscreen background-image" data-parallax-image="{% static 'images/mainBG.jpg' %}">
+            <div class="background-overlay"></div>
+            <div class="container">
+                <div class="container-fullscreen text-light text-center">
+                    <div class="text-middle">
+                        <h1 data-animation="fadeIn" data-animation-delay="500" class="text-large text-colored">CollabPads</h1>
+                        <h5 data-animation="fadeIn" data-animation-delay="500" class="text-small">Pre-Alpha Build</h5>
+                        <br  />
+                        <div data-animation="fadeIn" data-animation-delay="900">
+                            <a class="btn btn-primary" href="/dashboard/">Go to CollabPads</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- end: SECTION IMAGE FULLSCREEN -->
+          <!-- Footer -->
+        <footer id="footer" class="footer-light">
+            <div class="copyright-content">
+                <div class="container">
+                    <div class="copyright-text text-center">Pre-Alpha Build of CollabPads. Background by <a href="https://unsplash.com/@rawpixel">rawpixel</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- end: Footer -->
+
+    </div>
+    <!-- end: Wrapper -->
+
+    <!-- Go to top button -->
+    <!--Plugins-->
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/plugins.js' %}"></script>
+
+    <!--Template functions-->
+    <script src="{% static 'js/functions.js' %}"></script>
+
+</body>
+
+</html>
