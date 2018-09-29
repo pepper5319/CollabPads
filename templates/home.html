@@ -12,77 +12,228 @@
     <!-- Stylesheets & Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <link href="/static/css/main.1ff6628f.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">    <link href="{% static 'css/homepage.css' %}" rel="stylesheet">
+    <!-- Template color -->
     <style>
-    .footer {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      height: 60px; /* Set the fixed height of the footer here */
-      line-height: 60px; /* Vertically center the text there */
-      background-color: #f5f5f5;
+      .progress-bar{
+        background-color: #2dab08;
+      }
+      .parallax {
+        /* Full height */
+        height: 100%;
+
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
     }
     </style>
-    <!-- Template color -->
     </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <body id="page-top">
 
-      <nav class="navbar navbar-expand-lg navbar-color bg-light">
-        <a class="navbar-brand" href="#">CollabPads</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+      <!-- Navigation -->
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container">
+          <a class="navbar-brand js-scroll-trigger" href="#page-top">CollabPads</a>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-
-          </ul>
+              </li>
+            </ul>
+          </div>
         </div>
       </nav>
 
-        <!-- SECTION IMAGE FULLSCREEN -->
-        <br  />
-        <section class=>
-            <div class="background-overlay"></div>
-            <div class="container">
-                <div class="text-dark text-center">
-                    <div class="text-middle">
-                        <h1 data-animation="fadeIn" data-animation-delay="500" class="text-large text-colored">CollabPads</h1>
-                        <h5 data-animation="fadeIn" data-animation-delay="500" class="text-small">Pre-Alpha Build</h5>
-                        <br  />
-                        <div data-animation="fadeIn" data-animation-delay="900">
-                            <a class="btn btn-primary btn-raised" href="/dashboard/">Go to CollabPads</a>
-                        </div>
-                    </div>
-                </div>
+      <header class="masthead parallax text-center text-white d-flex" style="background-image: url('{% static 'images/mainBG.jpg' %} ');">
+        <div class="container my-auto">
+          <div class="row">
+            <div class="col-lg-10 mx-auto">
+              <h1 class="text-uppercase">
+                <strong>CollabPads</strong>
+                <p class="">Create and Share Lists</p>
+                <p class="text-faded">PRE ALPHA</p>
+              </h1>
+              <hr>
             </div>
-        </section>
-        <!-- end: SECTION IMAGE FULLSCREEN -->
-          <!-- Footer -->
-        <footer id="footer" class="footer">
-            <div class="copyright-content">
-                <div class="container">
-                    <div class="copyright-text text-center">Pre-Alpha Build of CollabPads. Background by <a href="https://unsplash.com/@rawpixel">rawpixel</a>
-                    </div>
-                </div>
+            <div class="col-lg-8 mx-auto">
+              <a class="btn btn-primary btn-xl js-scroll-trigger" href="/dashboard">Go To CollabPads</a>
             </div>
-        </footer>
-        <!-- end: Footer -->
+          </div>
+        </div>
+      </header>
+      <section id="services">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12 text-center">
+              <h2 class="section-heading">In Development</h2>
+              <p class="">Since CollabPads is in development, all planned features haven't been implemented yet.<br  />
+              However, we fully intend to implement everything we have drawn out in order to create a great product.</p>
+              <hr class="my-4">
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-4 col-md-6 text-center">
+              <div class="service-box mt-5 mx-auto">
+                <i class="fas fa-4x fa-clipboard text-primary mb-3 sr-icon-1"></i>
+                <h3 class="mb-3">Create Lists Online</h3>
+                <h5 class="text-uppercase">100%</h5>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6 text-center">
+              <div class="service-box mt-5 mx-auto">
+                <i class="fas fa-4x fa-share text-primary mb-3 sr-icon-2"></i>
+                <h3 class="mb-3">Share Lists with Friends</h3>
+                <h5 class="text-uppercase">90%</h5>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6 text-center">
+              <div class="service-box mt-5 mx-auto">
+                <i class="fas fa-4x fa-heart text-primary mb-3 sr-icon-3"></i>
+                <h3 class="mb-3">Like Items In Lists</h3>
+                <h5 class="text-uppercase">50%</h5>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 text-center">
+              <div class="service-box mt-5 mx-auto">
+                <i class="fab fa-4x fa-apple text-primary mb-3"></i>
+                <h3 class="mb-3">iPhone App</h3>
+                <h5 class="text-uppercase">Not Started</h5>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 text-center">
+              <div class="service-box mt-5 mx-auto">
+                <i class="fab fa-4x fa-android text-primary mb-3 sr-icon-4"></i>
+                <h3 class="mb-3">Android App</h3>
+                <h5 class="text-uppercase">Not Started</h5>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-    </div>
-    <!-- end: Wrapper -->
+      <section class="p-0" id="portfolio">
+        <div class="container-fluid p-0">
+          <div class="row no-gutters popup-gallery">
+            <div class="col-lg-4 col-sm-6">
+              <a class="portfolio-box" href="img/portfolio/fullsize/1.jpg">
+                <img class="img-fluid" src="img/portfolio/thumbnails/1.jpg" alt="">
+                <div class="portfolio-box-caption">
+                  <div class="portfolio-box-caption-content">
+                    <div class="project-category text-faded">
+                      Category
+                    </div>
+                    <div class="project-name">
+                      Project Name
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+              <a class="portfolio-box" href="img/portfolio/fullsize/2.jpg">
+                <img class="img-fluid" src="img/portfolio/thumbnails/2.jpg" alt="">
+                <div class="portfolio-box-caption">
+                  <div class="portfolio-box-caption-content">
+                    <div class="project-category text-faded">
+                      Category
+                    </div>
+                    <div class="project-name">
+                      Project Name
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+              <a class="portfolio-box" href="img/portfolio/fullsize/3.jpg">
+                <img class="img-fluid" src="img/portfolio/thumbnails/3.jpg" alt="">
+                <div class="portfolio-box-caption">
+                  <div class="portfolio-box-caption-content">
+                    <div class="project-category text-faded">
+                      Category
+                    </div>
+                    <div class="project-name">
+                      Project Name
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+              <a class="portfolio-box" href="img/portfolio/fullsize/4.jpg">
+                <img class="img-fluid" src="img/portfolio/thumbnails/4.jpg" alt="">
+                <div class="portfolio-box-caption">
+                  <div class="portfolio-box-caption-content">
+                    <div class="project-category text-faded">
+                      Category
+                    </div>
+                    <div class="project-name">
+                      Project Name
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+              <a class="portfolio-box" href="img/portfolio/fullsize/5.jpg">
+                <img class="img-fluid" src="img/portfolio/thumbnails/5.jpg" alt="">
+                <div class="portfolio-box-caption">
+                  <div class="portfolio-box-caption-content">
+                    <div class="project-category text-faded">
+                      Category
+                    </div>
+                    <div class="project-name">
+                      Project Name
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+              <a class="portfolio-box" href="img/portfolio/fullsize/6.jpg">
+                <img class="img-fluid" src="img/portfolio/thumbnails/6.jpg" alt="">
+                <div class="portfolio-box-caption">
+                  <div class="portfolio-box-caption-content">
+                    <div class="project-category text-faded">
+                      Category
+                    </div>
+                    <div class="project-name">
+                      Project Name
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
 
     <!-- Go to top button -->
     <!--Plugins-->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
-    <script>
-      $(document).ready(function() {
-        $("body").bootstrapMaterialDesign()
-      })
-    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="{% static 'js/homepage.js' %}"></script>
 
 </body>
 
