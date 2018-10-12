@@ -55,6 +55,23 @@ class GetListDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ListSerializer
     permission_classes = (permissions.IsAuthenticated, IsListAllowed)
 
+    def put(self, request, pk):
+        if(pk):
+            currentList = ListObject.objects.get(static_id=pk)
+            if(currentList):
+                currentList.collaborators.clear()
+                if(len(self.request.data['collabs']) > 0):
+                    for collab in self.request.data['collabs']:
+                        try:
+                            user = ListrUser.objects.get(username=collab);
+                            if user not in currentList.collaborators.all():
+                                currentList.collaborators.add(user)
+                        except ListrUser.DoesNotExist:
+                            print("User %s does not exists" % (collab))
+                currentList.save()
+
+            return Response('Updated List {}'.format(pk))
+
 
 """
 ITEM VIEWS
