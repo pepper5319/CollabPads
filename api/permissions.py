@@ -27,7 +27,10 @@ class IsItemAllowed(BasePermission):
         if(listId):
             currentList = ListObject.objects.get(static_id=listId)
             if(currentList):
-                return request.user.username == currentList.owner.username or request.user in currentList.collaborators.all()
+                if(currentList.readOnly == True and request.method == "POST"):
+                    return request.user.username == currentList.owner.username
+                else:
+                    return request.user.username == currentList.owner.username or request.user in currentList.collaborators.all()
             return False
         return False
 

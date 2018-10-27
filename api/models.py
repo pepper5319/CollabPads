@@ -13,6 +13,7 @@ class ListObject(models.Model):
         related_name='lists',
         on_delete=models.CASCADE)
     collaborators = models.ManyToManyField(ListrUser, blank=True)
+    readOnly = models.BooleanField(default=False)
 
     def __str__(self):
         return "{}".format(self.static_id)

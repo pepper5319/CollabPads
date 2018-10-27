@@ -8,7 +8,7 @@ class ListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ListObject
-        fields = ('static_id', 'name', 'owner', 'collaborators')
+        fields = ('static_id', 'name', 'owner', 'collaborators', 'readOnly')
 
 class ItemSerializer(serializers.ModelSerializer):
 
