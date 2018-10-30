@@ -1,0 +1,91 @@
+{% load staticfiles %}
+<html>
+<head>
+  <title>{{ list.name }} - CollabPads</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+  <style>
+    .btn-link {
+      color: #2dab08;
+    }
+
+    .btn-link:active, .btn-link:focus {
+      -webkit-box-shadow: 0 0 0 0.2rem rgba(240, 95, 64, 0.5) !important;
+      box-shadow: 0 0 0 0.2rem rgba(240, 95, 64, 0.5) !important;
+    }
+    .btn-primary {
+      background-color: #2dab08;
+      border-color: #2dab08;
+    }
+
+    .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+      color: #fff;
+      background-color: #2dab08 !important;
+    }
+
+    .btn-primary:active, .btn-primary:focus {
+      -webkit-box-shadow: 0 0 0 0.2rem rgba(240, 95, 64, 0.5) !important;
+      box-shadow: 0 0 0 0.2rem rgba(240, 95, 64, 0.5) !important;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">CollabPads</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto my-2 my-lg-0">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Go To Site</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <br  />
+  <div class="container">
+    {% if not list.readOnly %}
+    <form action="lists" method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="itemName" class="bmd-label-floating">Item Name</label>
+        <input type="text" class="form-control" name="itemName" id="itemName" required/>
+      </div>
+      <div class="form-group">
+        <label for="itemDescription" class="bmd-label-floating">Item Description (Optional)</label>
+        <textarea class="form-control" name="itemDescription" id="itemDescription"></textarea>
+      </div>
+      <button class="btn btn-primary" type="submit">Add Item</button>
+    </form>
+    {% endif %}
+    <div id="accordion">
+      {% for item in items %}
+      <div class="card">
+        <div class="card-header" id="headingOne">
+          <h5 class="mb-0">
+            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              {{ item.name }} - {{ item.owner }}
+            </button>
+          </h5>
+        </div>
+        {% if item.description != "" %}
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+          <div class="card-body">
+            <p>{{ item.description }}</p>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+  <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+  <script>
+  
+  </script>
+</body>

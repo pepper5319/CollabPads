@@ -5,6 +5,10 @@ from .models import ListObject, Item, ListrUser
 class IsListAllowed(BasePermission):
     def has_object_permission(self, request, view, obj):
         if isinstance(obj, ListObject):
+            guestAccess = request.META['HTTP_GUEST']
+            if(guestAccess and guestAccess == 'True'):
+                if(request.method == "GET" or request.method == "PATCH"):
+                    return True
             if(request.user in obj.collaborators.all()):
                 if(request.method == "GET" or request.method == "PATCH"):
                     return True
@@ -17,20 +21,31 @@ class IsItemDetailAllowed(BasePermission):
         if isinstance(obj, Item):
             currentList = ListObject.objects.get(static_id=obj.assigned_list)
             if(currentList):
-                return request.user.username == currentList.owner.username or request.user in currentList.collaborators.all()
+                guestAccess = request.META['HTTP_GUEST']
+                if(guestAccess and guestAccess == 'True'):
+                    return True
+                else:
+                    return request.user.username == currentList.owner.username or request.user in currentList.collaborators.all()
             return False
         return False
 
 class IsItemAllowed(BasePermission):
     def has_permission(self, request, view):
         listId = request.META['HTTP_LIST_ID']
+        guestAccess = request.META['HTTP_GUEST']
         if(listId):
             currentList = ListObject.objects.get(static_id=listId)
             if(currentList):
-                if(currentList.readOnly == True and request.method == "POST"):
-                    return request.user.username == currentList.owner.username
+                if(guestAccess and guestAccess == 'True'):
+                    if(currentList.readOnly == True and request.method == "POST"):
+                        return request.user.username == currentList.owner.username
+                    else:
+                        return True
                 else:
-                    return request.user.username == currentList.owner.username or request.user in currentList.collaborators.all()
+                    if(currentList.readOnly == True and request.method == "POST"):
+                        return request.user.username == currentList.owner.username
+                    else:
+                        return request.user.username == currentList.owner.username or request.user in currentList.collaborators.all()
             return False
         return False
 

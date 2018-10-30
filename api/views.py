@@ -7,6 +7,7 @@ from .serializers import *
 from .permissions import *
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
+import requests
 
 # Create your views here.
 
@@ -101,7 +102,6 @@ class DetailsItemView(generics.RetrieveUpdateDestroyAPIView):
             currentItem = Item.objects.get(static_id=pk)
             if(currentItem):
                 if(len(self.request.data['liked_users']) > 0):
-                    print(currentItem.liked_users)
                     for collab in self.request.data['liked_users']:
                         try:
                             user = ListrUser.objects.get(username=collab);
@@ -125,3 +125,33 @@ class CurrentUserView(APIView):
     def get(self, request):
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
+
+def shared_list(request):
+    listId = request.GET.get('l', '')
+
+    itemUrl = 'http://localhost:8000/listr_api/items'
+    itemHeader = {'LIST-ID': listId, 'GUEST': 'True', 'Authorization': 'Token ce077fea6eab6d704138d9f271d37330f4b226a5'}
+    itemData = requests.get(itemUrl, headers=itemHeader)
+
+    listUrl = 'http://localhost:8000/listr_api/lists/%s/' % (listId)
+    listHeader = {'GUEST': 'True', 'Authorization': 'Token ce077fea6eab6d704138d9f271d37330f4b226a5'}
+    listData = requests.get(listUrl, headers=itemHeader)
+
+    if(request.method == 'POST'):
+        try:
+            itemName=request.POST['itemName']
+            itemDescription=request.POST['itemDescription']
+        except:
+            print("Could not get item data")
+
+        listUrl = 'http://localhost:8000/listr_api/items/' % (listId)
+        listHeader = {'GUEST': 'True', 'Authorization': 'Token ce077fea6eab6d704138d9f271d37330f4b226a5'}
+        listData = requests.get(listUrl, headers=itemHeader)
+
+        static_id = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(8))
+
+    ctx = {
+        "list": listData.json(),
+        "items": itemData.json()
+    }
+    return render(request, "list.html", ctx)
