@@ -130,11 +130,11 @@ def shared_list(request):
     listId = request.GET.get('l', '')
 
     itemUrl = 'http://localhost:8000/listr_api/items'
-    itemHeader = {'LIST-ID': listId, 'GUEST': 'True', 'Authorization': 'Token ce077fea6eab6d704138d9f271d37330f4b226a5'}
+    itemHeader = {'LIST-ID': listId, 'GUEST': 'True', 'Authorization': 'Token a145e0be7628e8a41127ab6ef3707144c2a9857e '}
     itemData = requests.get(itemUrl, headers=itemHeader)
 
     listUrl = 'http://localhost:8000/listr_api/lists/%s/' % (listId)
-    listHeader = {'GUEST': 'True', 'Authorization': 'Token ce077fea6eab6d704138d9f271d37330f4b226a5'}
+    listHeader = {'GUEST': 'True', 'Authorization': 'Token a145e0be7628e8a41127ab6ef3707144c2a9857e '}
     listData = requests.get(listUrl, headers=itemHeader)
 
     if(request.method == 'POST'):
@@ -145,7 +145,7 @@ def shared_list(request):
             print("Could not get item data")
 
         listUrl = 'http://localhost:8000/listr_api/items/' % (listId)
-        listHeader = {'GUEST': 'True', 'Authorization': 'Token ce077fea6eab6d704138d9f271d37330f4b226a5'}
+        listHeader = {'GUEST': 'True', 'Authorization': 'Token a145e0be7628e8a41127ab6ef3707144c2a9857e '}
         listData = requests.get(listUrl, headers=itemHeader)
 
         static_id = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(8))
