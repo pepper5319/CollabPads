@@ -129,11 +129,11 @@ class CurrentUserView(APIView):
 def shared_list(request):
     listId = request.GET.get('l', '')
 
-    itemUrl = 'http://localhost:8000/listr_api/items'
+    itemUrl = 'http://collabpads.herokuapp.com/listr_api/items'
     itemHeader = {'LIST-ID': listId, 'GUEST': 'True', 'Authorization': 'Token a145e0be7628e8a41127ab6ef3707144c2a9857e '}
     itemData = requests.get(itemUrl, headers=itemHeader)
 
-    listUrl = 'http://localhost:8000/listr_api/lists/%s/' % (listId)
+    listUrl = 'http://collabpads.herokuapp.com/listr_api/lists/%s/' % (listId)
     listHeader = {'GUEST': 'True', 'Authorization': 'Token a145e0be7628e8a41127ab6ef3707144c2a9857e '}
     listData = requests.get(listUrl, headers=itemHeader)
 
@@ -144,7 +144,7 @@ def shared_list(request):
         except:
             print("Could not get item data")
 
-        listUrl = 'http://localhost:8000/listr_api/items/' % (listId)
+        listUrl = 'http://collabpads.herokuapp.com/listr_api/items/' % (listId)
         listHeader = {'GUEST': 'True', 'Authorization': 'Token a145e0be7628e8a41127ab6ef3707144c2a9857e '}
         listData = requests.get(listUrl, headers=itemHeader)
 
