@@ -313,6 +313,6 @@ header.masthead p {
 }
 
 .btn-primary:active, .btn-primary:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(240, 95, 64, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(240, 95, 64, 0.5) !important;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(45,171,8, 0.5) !important;
+  box-shadow: 0 0 0 0.2rem rgba(45,171,8, 0.5) !important;
 }

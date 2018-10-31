@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from rest_framework import generics, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -11,6 +11,7 @@ import requests
 import random
 import string
 import json
+from django.template import RequestContext
 
 # Create your views here.
 
@@ -186,3 +187,18 @@ def shared_list(request):
         "token": "d0b7b2803369922e5e8e2716ec4f296b2f224bed"
     }
     return render(request, "list.html", ctx)
+
+def handler404(request, exception, template_name='404.html'):
+    response = render(request, '404.html', {})
+    response.status_code = 404
+    return response
+
+
+def handler500(request, template_name='500.html'):
+    listId = request.GET.get('l', '')
+    if(listId):
+        response = render(request, '500.html', {'list': True})
+    else:
+        response = render(request, '500.html', {'list': False})
+    response.status_code = 500
+    return response

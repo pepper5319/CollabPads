@@ -25,3 +25,6 @@ urlpatterns = [
     path('listr_api/', include('api.urls')),
     path('lists', views.shared_list)
 ]
+
+handler404 = views.handler404
+handler500 = views.handler500
