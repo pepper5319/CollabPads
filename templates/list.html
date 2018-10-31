@@ -33,6 +33,7 @@
       })
       .then(res => {
         if(res.status === 200){
+          console.log('UPDATED');
         }
       });
     }
@@ -94,7 +95,7 @@
                     "liked_guests": ({{ item.liked_guests }}),
                     "static_id": "{{ item.static_id }}"
                   }
-                  userLike("http://collabpads.herokuapp.com/listr_api/items/", data);
+                  userLike("https://collabpads.herokuapp.com/listr_api/items/", data);
 
                   document.getElementById("like_{{item.static_id}}").style.cssText = "display: none;";
                   document.getElementById("unlike_{{item.static_id}}").style.cssText = "display: visible;";
@@ -108,7 +109,7 @@
                     "liked_guests": ({{ item.liked_guests }} + 1),
                     "static_id": "{{ item.static_id }}"
                   }
-                  userLike("http://collabpads.herokuapp.com/listr_api/items/", data);
+                  userLike("https://collabpads.herokuapp.com/listr_api/items/", data);
                   document.getElementById("unlike_{{item.static_id}}").style.cssText = "display: none;";
                   document.getElementById("like_{{item.static_id}}").style.cssText = "display: visible;";
 
