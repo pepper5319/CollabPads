@@ -137,7 +137,7 @@ def shared_list(request):
     listId = request.GET.get('l', '')
 
     itemUrl = 'http://collabpads.herokuapp.com/listr_api/items'
-    itemHeader = {'LIST-ID': listId, 'GUEST': 'True', 'Authorization': 'Token a145e0be7628e8a41127ab6ef3707144c2a9857e '}
+    itemHeader = {'LIST-ID': listId, 'GUEST': 'True', 'Authorization': 'Token d0b7b2803369922e5e8e2716ec4f296b2f224bed '}
 
     #itemUrl = 'http://localhost:8000/listr_api/items'
     #itemHeader = {'LIST-ID': listId, 'GUEST': 'True', 'Authorization': 'Token ce077fea6eab6d704138d9f271d37330f4b226a5 '}
@@ -145,7 +145,7 @@ def shared_list(request):
     itemData = requests.get(itemUrl, headers=itemHeader)
 
     listUrl = 'http://collabpads.herokuapp.com/listr_api/lists/%s/' % (listId)
-    listHeader = {'GUEST': 'True', 'Authorization': 'Token a145e0be7628e8a41127ab6ef3707144c2a9857e '}
+    listHeader = {'GUEST': 'True', 'Authorization': 'Token d0b7b2803369922e5e8e2716ec4f296b2f224bed '}
 
     #listUrl = 'http://localhost:8000/listr_api/lists/%s/' % (listId)
     #listHeader = {'GUEST': 'True', 'Authorization': 'Token ce077fea6eab6d704138d9f271d37330f4b226a5 '}
@@ -170,7 +170,7 @@ def shared_list(request):
         data = json.dumps(data)
 
         itemUrl = 'http://collabpads.herokuapp.com/listr_api/items/'
-        postHeader = {'GUEST': 'True', 'Authorization': 'Token a145e0be7628e8a41127ab6ef3707144c2a9857e ', 'LIST-ID': listId, 'content-type': 'application/json'}
+        postHeader = {'GUEST': 'True', 'Authorization': 'Token d0b7b2803369922e5e8e2716ec4f296b2f224bed ', 'LIST-ID': listId, 'content-type': 'application/json'}
 
         #itemUrl = 'http://localhost:8000/listr_api/items/'
         #postHeader = {'GUEST': 'True', 'Authorization': 'Token ce077fea6eab6d704138d9f271d37330f4b226a5 ', 'LIST-ID': listId, 'content-type': 'application/json'}
@@ -183,6 +183,6 @@ def shared_list(request):
     ctx = {
         "list": listData.json(),
         "items": itemData.json(),
-        "token": "a145e0be7628e8a41127ab6ef3707144c2a9857e"
+        "token": "d0b7b2803369922e5e8e2716ec4f296b2f224bed"
     }
     return render(request, "list.html", ctx)
