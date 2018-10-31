@@ -8,6 +8,9 @@ from .permissions import *
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 import requests
+import random
+import string
+import json
 
 # Create your views here.
 
@@ -101,17 +104,21 @@ class DetailsItemView(generics.RetrieveUpdateDestroyAPIView):
         if(pk):
             currentItem = Item.objects.get(static_id=pk)
             if(currentItem):
-                if(len(self.request.data['liked_users']) > 0):
-                    for collab in self.request.data['liked_users']:
-                        try:
-                            user = ListrUser.objects.get(username=collab);
-                            if user not in currentItem.liked_users.all():
-                                currentItem.liked_users.add(user)
-                        except ListrUser.DoesNotExist:
-                            print("User %s does not exists" % (collab))
-                else:
-                    currentItem.liked_users.remove(request.user)
-                currentItem.save()
+                if('liked_users' in request.data):
+                    if(len(self.request.data['liked_users']) > 0):
+                        for collab in self.request.data['liked_users']:
+                            try:
+                                user = ListrUser.objects.get(username=collab);
+                                if user not in currentItem.liked_users.all():
+                                    currentItem.liked_users.add(user)
+                            except ListrUser.DoesNotExist:
+                                print("User %s does not exists" % (collab))
+                    else:
+                        currentItem.liked_users.remove(request.user)
+                    currentItem.save()
+                if('liked_guests' in request.data):
+                    currentItem.liked_guests = self.request.data['liked_guests']
+                    currentItem.save()
 
             return Response('Updated List {}'.format(pk))
 
@@ -131,11 +138,19 @@ def shared_list(request):
 
     itemUrl = 'http://collabpads.herokuapp.com/listr_api/items'
     itemHeader = {'LIST-ID': listId, 'GUEST': 'True', 'Authorization': 'Token a145e0be7628e8a41127ab6ef3707144c2a9857e '}
+
+    #itemUrl = 'http://localhost:8000/listr_api/items'
+    #itemHeader = {'LIST-ID': listId, 'GUEST': 'True', 'Authorization': 'Token ce077fea6eab6d704138d9f271d37330f4b226a5 '}
+
     itemData = requests.get(itemUrl, headers=itemHeader)
 
     listUrl = 'http://collabpads.herokuapp.com/listr_api/lists/%s/' % (listId)
     listHeader = {'GUEST': 'True', 'Authorization': 'Token a145e0be7628e8a41127ab6ef3707144c2a9857e '}
-    listData = requests.get(listUrl, headers=itemHeader)
+
+    #listUrl = 'http://localhost:8000/listr_api/lists/%s/' % (listId)
+    #listHeader = {'GUEST': 'True', 'Authorization': 'Token ce077fea6eab6d704138d9f271d37330f4b226a5 '}
+
+    listData = requests.get(listUrl, headers=listHeader)
 
     if(request.method == 'POST'):
         try:
@@ -144,14 +159,30 @@ def shared_list(request):
         except:
             print("Could not get item data")
 
-        listUrl = 'http://collabpads.herokuapp.com/listr_api/items/' % (listId)
-        listHeader = {'GUEST': 'True', 'Authorization': 'Token a145e0be7628e8a41127ab6ef3707144c2a9857e '}
-        listData = requests.get(listUrl, headers=itemHeader)
-
         static_id = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(8))
+
+        data = {
+            "name": itemName,
+            "description": itemDescription,
+            "static_id": static_id
+        }
+
+        data = json.dumps(data)
+
+        itemUrl = 'http://collabpads.herokuapp.com/listr_api/items/'
+        postHeader = {'GUEST': 'True', 'Authorization': 'Token a145e0be7628e8a41127ab6ef3707144c2a9857e ', 'LIST-ID': listId, 'content-type': 'application/json'}
+
+        #itemUrl = 'http://localhost:8000/listr_api/items/'
+        #postHeader = {'GUEST': 'True', 'Authorization': 'Token ce077fea6eab6d704138d9f271d37330f4b226a5 ', 'LIST-ID': listId, 'content-type': 'application/json'}
+
+        postData = requests.post(itemUrl, data=data, headers=postHeader)
+
+        itemData = requests.get(itemUrl, headers=itemHeader)
+        listData = requests.get(listUrl, headers=listHeader)
 
     ctx = {
         "list": listData.json(),
-        "items": itemData.json()
+        "items": itemData.json(),
+        "token": "a145e0be7628e8a41127ab6ef3707144c2a9857e"
     }
     return render(request, "list.html", ctx)

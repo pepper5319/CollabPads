@@ -18,7 +18,7 @@ class ItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Item
-        fields = ('static_id', 'name', 'description', 'owner', 'assigned_list', 'liked_users')
+        fields = ('static_id', 'name', 'description', 'owner', 'assigned_list', 'liked_users', 'liked_guests')
 
 
 class UserSerializer(serializers.ModelSerializer):

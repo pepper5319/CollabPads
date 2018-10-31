@@ -23,6 +23,7 @@ class Item(models.Model):
     static_id = models.CharField(max_length=8, blank=False, primary_key=True, unique=True)
     description = models.TextField(max_length=512, blank=True)
     liked_users = models.ManyToManyField(ListrUser, blank=True)
+    liked_guests = models.IntegerField(default=0)
     assigned_list = models.ForeignKey(ListObject, on_delete=models.CASCADE)
     owner = models.ForeignKey(ListrUser,  # ADD THIS FIELD
         related_name='items',
