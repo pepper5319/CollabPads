@@ -52,7 +52,7 @@
     </div>
   </nav>
   <br  />
-  <div class="container">
+  <div class="container-fluid">
     {% if not list.readOnly %}
     <form action="lists?l={{ list.static_id }}" method="post">
       {% csrf_token %}
@@ -70,52 +70,54 @@
     <div id="accordion">
       {% if items|length > 0 %}
         {% for item in items %}
-        <div class="card">
-          <div class="card-header" id="headingOne">
-            <h5 class="mb-0">
-              <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{item.static_id}}" aria-expanded="true" aria-controls="collapse{{item.static_id}}">
-                {{ item.name }} - {{ item.owner }}
-              </button>
-            </h5>
-          </div>
-          <div id="collapse{{item.static_id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-            <div class="card-body">
-              <p>{{ item.description }}</p>
-              <hr  />
-              <button class="btn btn-primary" onClick="userLike({{ item.static_id }})" id="like_{{item.static_id}}" style="display: none;"><i class="fa fa-heart"></i> {{ item.liked_users|length|add:item.liked_guests }}</button>
-              <button class="btn btn-secondary" onClick="userLike({{ item.static_id }})" id="unlike_{{item.static_id}}" style="display: visible;"><i class="fa fa-heart"></i> {{ item.liked_users|length|add:item.liked_guests }}</button>
+        <div class="col-xs-12">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{item.static_id}}" aria-expanded="true" aria-controls="collapse{{item.static_id}}">
+                  {{ item.name }} - {{ item.owner }}
+                </button>
+              </h5>
+            </div>
+            <div id="collapse{{item.static_id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body">
+                <p>{{ item.description }}</p>
+                <hr  />
+                <button class="btn btn-primary" onClick="userLike({{ item.static_id }})" id="like_{{item.static_id}}" style="display: none;"><i class="fa fa-heart"></i> {{ item.liked_users|length|add:item.liked_guests }}</button>
+                <button class="btn btn-secondary" onClick="userLike({{ item.static_id }})" id="unlike_{{item.static_id}}" style="display: visible;"><i class="fa fa-heart"></i> {{ item.liked_users|length|add:item.liked_guests }}</button>
 
-              <script>
-              document.getElementById("like_{{item.static_id}}").onclick = function fun() {
-                const data = {
-                  "liked_guests": ({{ item.liked_guests }}),
-                  "static_id": "{{ item.static_id }}"
+                <script>
+                document.getElementById("like_{{item.static_id}}").onclick = function fun() {
+                  const data = {
+                    "liked_guests": ({{ item.liked_guests }}),
+                    "static_id": "{{ item.static_id }}"
+                  }
+                  userLike("http://collabpads.herokuapp.com/listr_api/items/", data);
+
+                  document.getElementById("like_{{item.static_id}}").style.cssText = "display: none;";
+                  document.getElementById("unlike_{{item.static_id}}").style.cssText = "display: visible;";
+
+                  document.getElementById("unlike_{{item.static_id}}").innerHTML = "<i class='fa fa-heart'></i> " + item.liked_guests;
+
                 }
-                userLike("http://collabpads.herokuapp.com/listr_api/items/", data);
 
-                document.getElementById("like_{{item.static_id}}").style.cssText = "display: none;";
-                document.getElementById("unlike_{{item.static_id}}").style.cssText = "display: visible;";
+                document.getElementById("unlike_{{item.static_id}}").onclick = function fun() {
+                  const data = {
+                    "liked_guests": ({{ item.liked_guests }} + 1),
+                    "static_id": "{{ item.static_id }}"
+                  }
+                  userLike("http://collabpads.herokuapp.com/listr_api/items/", data);
+                  document.getElementById("unlike_{{item.static_id}}").style.cssText = "display: none;";
+                  document.getElementById("like_{{item.static_id}}").style.cssText = "display: visible;";
 
-                document.getElementById("unlike_{{item.static_id}}").innerHTML = "<i class='fa fa-heart'></i> " + item.liked_guests;
-
-              }
-
-              document.getElementById("unlike_{{item.static_id}}").onclick = function fun() {
-                const data = {
-                  "liked_guests": ({{ item.liked_guests }} + 1),
-                  "static_id": "{{ item.static_id }}"
+                  document.getElementById("like_{{item.static_id}}").innerHTML = "<i class='fa fa-heart'></i> " + data.liked_guests;
                 }
-                userLike("http://collabpads.herokuapp.com/listr_api/items/", data);
-                document.getElementById("unlike_{{item.static_id}}").style.cssText = "display: none;";
-                document.getElementById("like_{{item.static_id}}").style.cssText = "display: visible;";
-
-                document.getElementById("like_{{item.static_id}}").innerHTML = "<i class='fa fa-heart'></i> " + data.liked_guests;
-              }
-              </script>
+                </script>
+              </div>
             </div>
           </div>
+          <br  />
         </div>
-        <br  />
         {% endfor %}
       {% else %}
         <h3>This Pad has No Items</h3>
