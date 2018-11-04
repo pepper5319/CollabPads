@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import ListObject, Item, ListrUser
+from .models import ListObject, Item, ListrUser, Key
 
 class ListSerializer(serializers.ModelSerializer):
 
@@ -19,6 +19,11 @@ class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
         fields = ('static_id', 'name', 'description', 'owner', 'assigned_list', 'liked_users', 'liked_guests')
+
+class KeySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Key
+        fields = ('code', 'uses')
 
 
 class UserSerializer(serializers.ModelSerializer):

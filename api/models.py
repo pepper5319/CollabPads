@@ -5,6 +5,12 @@ class ListrUser(AbstractUser):
     def __str__(self):
         return "{}".format(self.username)
 
+class Key(models.Model):
+    code = models.CharField(max_length=16)
+    uses = models.IntegerField()
+    def __str__(self):
+        return "{}".format(self.code)
+
 class ListObject(models.Model):
     name = models.CharField(max_length=255, default="My List")
     static_id = models.CharField(max_length=6, primary_key=True, unique=True, null=False, blank=False)

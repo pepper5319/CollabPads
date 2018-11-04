@@ -1,4 +1,4 @@
-from rest_framework.permissions import BasePermission
+from rest_framework.permissions import BasePermission, AllowAny
 from .models import ListObject, Item, ListrUser
 
 #Is allowed to view list
@@ -29,6 +29,7 @@ class IsItemDetailAllowed(BasePermission):
             return False
         return False
 
+
 class IsItemAllowed(BasePermission):
     def has_permission(self, request, view):
         listId = request.META['HTTP_LIST_ID']
@@ -58,3 +59,7 @@ class IsOwner(BasePermission):
         if isinstance(obj, Item):
             return obj.owner == request.user
         return obj.owner == request.user
+
+class IsKey(BasePermission):
+    def has_permission(self, request, view):
+        return True

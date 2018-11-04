@@ -12,6 +12,7 @@ import random
 import string
 import json
 from django.template import RequestContext
+from rest_framework.permissions import AllowAny
 
 # Create your views here.
 
@@ -133,6 +134,25 @@ class CurrentUserView(APIView):
     def get(self, request):
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
+
+
+class KeyView(generics.UpdateAPIView):
+    """This class handles the http GET, PUT and DELETE requests."""
+
+    queryset = Key.objects.all()
+    serializer_class = KeySerializer
+    permission_classes = (permissions.AllowAny,)
+
+    def put(self, request, pk):
+        if(pk):
+            currentKey = Key.objects.get(code=pk)
+            if(currentKey):
+                if(currentKey.uses > 0):
+                    currentKey.uses = currentKey.uses - 1
+                    currentKey.save()
+                if(currentKey.uses <= 0):
+                    currentKey.delete()
+            return Response(pk)
 
 def shared_list(request):
     listId = request.GET.get('l', '')
