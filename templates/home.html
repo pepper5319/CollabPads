@@ -1,163 +1,152 @@
 {% load staticfiles %}
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="author" content="Woot Poot" />
-    <meta name="description" content="CollabPads">
-    <!-- Document title -->
-    <title>CollabPads - Create and Share Lists</title>
-    <!-- Stylesheets & Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link href="{% static 'css/homepage.css' %}" rel="stylesheet">
-    <!-- Template color -->
-    <style>
-      .progress-bar{
-        background-color: #2dab08;
-      }
-      .parallax {
-        /* Full height */
-        height: 100%;
-
-        /* Create the parallax scrolling effect */
-        background-attachment: fixed;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-    </style>
+    <head>
+        <meta charset="utf-8">
+        <title>CollabPads - Create and Share Lists</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" type="text/css" media="all">
+        <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css" media="all" />
+        <link href="{% static 'css/flexslider.css' %}" rel="stylesheet" type="text/css" media="all" />
+        <link href="{% static 'css/lightbox.min.css' %}" rel="stylesheet" type="text/css" media="all" />
+        <link href="{% static 'css/ytplayer.css' %}" rel="stylesheet" type="text/css" media="all" />
+        <link href="{% static 'css/theme.css' %}" rel="stylesheet" type="text/css" media="all" />
+        <link href="{% static 'css/custom.css' %}" rel="stylesheet" type="text/css" media="all" />
+        <link href='http://fonts.googleapis.com/css?family=Lato:300,400%7CRaleway:100,400,300,500,600,700%7COpen+Sans:400,500,600' rel='stylesheet' type='text/css'>
+        <link href="http://fonts.googleapis.com/css?family=Roboto:100,300,400,600,700" rel="stylesheet" type="text/css">
+        <link href="{% static 'css/font-roboto.css' %}" rel="stylesheet" type="text/css">
     </head>
-    <body id="page-top">
 
-      <!-- Navigation -->
-      <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-        <div class="container">
-          <a class="navbar-brand js-scroll-trigger" href="#page-top">CollabPads</a>
-          <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
+    <body>
 
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
 
-      <header class="masthead parallax text-center text-white d-flex" style="background-image: url('{% static 'images/mainBG.jpg' %} ');">
-        <div class="container my-auto">
-          <div class="row">
-            <div class="col-lg-10 mx-auto">
-              <h1 class="text-uppercase">
-                <strong>CollabPads</strong>
-                <p class="">Create and Share Lists</p>
-                <p class="text-faded">PRE ALPHA</p>
-              </h1>
-              <hr>
-            </div>
-            <div class="col-lg-8 mx-auto">
-              <a class="btn btn-primary btn-xl js-scroll-trigger" href="/dashboard">Go To CollabPads</a>
-            </div>
-          </div>
-        </div>
-      </header>
-      <section class="bg-primary" id="about">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 mx-auto text-center">
-            <h2 class="section-heading text-white">A New Way To Share The Things You Need</h2>
-            <hr class="light my-4">
-            <p class="text-faded mb-4">CollabPads is the easiest way to create, share, and contribute to lists on any device. Sign up to create 'Pads', and share them with your friends whether they have an account or not.<br  />Best of all, it's totally free.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-      <section id="services">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-12 text-center">
-              <h2 class="section-heading">In Development</h2>
-              <p class="">Since CollabPads is in development, all planned features haven't been implemented yet.<br  />
-              However, we fully intend to implement everything we have drawn out in order to create a great product.</p>
-              <hr class="my-4">
-            </div>
-          </div>
-        </div>
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-4 col-md-6 text-center">
-              <div class="service-box mt-5 mx-auto">
-                <i class="fas fa-4x fa-clipboard text-primary mb-3 sr-icon-1"></i>
-                <h3 class="mb-3">Create Lists Online</h3>
-                <h5 class="text-uppercase">100%</h5>
-                <div class="progress">
-                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 col-md-6 text-center">
-              <div class="service-box mt-5 mx-auto">
-                <i class="fas fa-4x fa-share text-primary mb-3 sr-icon-2"></i>
-                <h3 class="mb-3">Share Lists with Friends</h3>
-                <h5 class="text-uppercase">100%</h5>
-                <div class="progress">
-                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 col-md-6 text-center">
-              <div class="service-box mt-5 mx-auto">
-                <i class="fas fa-4x fa-heart text-primary mb-3 sr-icon-3"></i>
-                <h3 class="mb-3">Like Items In Lists</h3>
-                <h5 class="text-uppercase">100%</h5>
-                <div class="progress">
-                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 col-md-6 text-center">
-              <div class="service-box mt-5 mx-auto">
-                <i class="fas fa-4x fa-link text-primary mb-3 sr-icon-3"></i>
-                <h3 class="mb-3">Share Using Invite Links</h3>
-                <h5 class="text-uppercase">75%</h5>
-                <div class="progress">
-                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 col-md-6 text-center">
-              <div class="service-box mt-5 mx-auto">
-                <i class="fab fa-4x fa-apple text-primary mb-3"></i>
-                <h3 class="mb-3">iPhone App</h3>
-                <h5 class="text-uppercase">Not Started</h5>
-                <div class="progress">
-                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 col-md-6 text-center">
-              <div class="service-box mt-5 mx-auto">
-                <i class="fab fa-4x fa-android text-primary mb-3 sr-icon-4"></i>
-                <h3 class="mb-3">Android App</h3>
-                <h5 class="text-uppercase">Not Started</h5>
-                <div class="progress">
-                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    <!-- Go to top button -->
-    <!--Plugins-->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="{% static 'js/homepage.js' %}"></script>
 
-</body>
+		<div class="main-container">
+		<section class="cover fullscreen image-bg overlay parallax">
+		        <div class="background-image-holder">
+		            <img alt="image" class="background-image" src="{% static 'images/mainBG.jpg' %}">
+		        </div>
+		        <div class="container v-align-transform">
+		            <div class="row">
+		                <div class="col-sm-12 text-center">
+		                    <h1 class="mb16 large uppercase">collabpads<br></h1>
+		                    <h5 class="uppercase mb0 bold">create, share, and collaborate on lists<br></h5>
+		                </div>
+		            </div>
 
+		        </div>
+
+		        <div class="align-bottom relative-xs text-center">
+		            <a class="btn btn-lg mb32 mt-xs-40" href="/dashboard/">Go To CollabPads </a>
+		        </div>
+		    </section><section>
+		        <div class="container">
+		            <div class="row mb64 mb-xs-24">
+		                <div class="col-sm-12 col-md-10 col-md-offset-1 text-center">
+		                    <h3>CollabPads is a new way to share lists with friends and family<br></h3>
+		                </div>
+		            </div>
+
+		            <div class="row">
+		                <div class="col-sm-6 text-center">
+		                    <div class="feature">
+		                        <div class="text-center">
+		                            <i class="mb40 mb-xs-24 inline-block color-primary fa fa-list icon-lg"></i>
+		                            <h5 class="uppercase">pads. Much more than a list<br></h5>
+		                        </div>
+		                        <p>CollabPads doesn't use traditional lists. Pad's give users control over how others can contribute to and access items. Best of all they can be viewed anywhere, anytime, on any device.<br></p>
+		                    </div>
+
+		                </div>
+		                <div class="col-sm-6 text-center">
+		                    <div class="feature">
+		                        <div class="text-center">
+		                            <i class="mb40 mb-xs-24 inline-block color-primary fa fa-group icon-lg"></i>
+		                            <h5 class="uppercase">share with anyone in any way<br></h5>
+		                        </div>
+		                        <p>Collaborating on something has never been easier. Share with anyone, whether they have an account or not. Signing up gives users more features, but they can contribute to any Pad as long as they are granted access.<br></p>
+		                    </div>
+
+		                </div>
+		            </div>
+
+		        </div>
+
+		    </section><section class="bg-secondary">
+		        <div class="container">
+		            <div class="row">
+		                <div class="col-sm-5">
+		                    <h4 class="uppercase">In Development<br></h4>
+		                    <p>Since CollabPads is still in development, some features still haven't been implemented or are in progress (which means a bug could be crawling around here or there). However, we intend to fully implement each feature in order to deliver a great piece service.<br></p>
+		                </div>
+		                <div class="col-sm-7">
+		                    <h4 class="uppercase">progress<br></h4>
+		                    <div class="progress-bars">
+		                        <div class="progress progress-1">
+		                            <div class="progress-bar" data-progress="100">
+		                                <span class="title">Create Lists online (complete) </span>
+		                            </div>
+		                        </div>
+
+		                        <div class="progress progress-1">
+		                            <div class="progress-bar" data-progress="90">
+		                                <span class="title">share with friends (90%) </span>
+		                            </div>
+		                        </div>
+
+		                        <div class="progress progress-1">
+		                            <div class="progress-bar" data-progress="100">
+		                                <span class="title">like items (Complete) </span>
+		                            </div>
+		                        </div>
+
+		                        <div class="progress progress-1">
+		                            <div class="progress-bar" data-progress="20">
+		                                <span class="title">ios (0%) </span>
+		                            </div>
+		                        </div><div class="progress progress-1">
+		                            <div class="progress-bar" data-progress="20">
+		                                <span class="title">android (0%) </span>
+		                            </div>
+		                        </div>
+
+		                    </div>
+
+		                </div>
+		            </div>
+
+		        </div>
+
+		    </section>
+
+
+			<footer class="footer-2 bg-dark text-center-xs">
+				<div class="container">
+					<div class="row">
+
+
+						<div class="col-sm-4 text-center">
+							<span class="fade-half">ALPHA BUILD </span>
+						</div>
+
+
+					</div>
+				</div>
+			</footer>
+		</div>
+
+
+	     <script src="{% static 'js/jquery.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/flexslider.min.js' %}"></script>
+        <script src="{% static 'js/lightbox.min.js' %}"></script>
+        <script src="{% static 'js/masonry.min.js' %}"></script>
+        <script src="{% static 'js/twitterfetcher.min.js' %}"></script>
+        <script src="{% static 'js/spectragram.min.js' %}"></script>
+        <script src="{% static 'js/ytplayer.min.js' %}"></script>
+        <script src="{% static 'js/countdown.min.js' %}"></script>
+        <script src="{% static 'js/smooth-scroll.min.js' %}"></script>
+        <script src="{% static 'js/parallax.js' %}"></script>
+        <script src="{% static 'js/scripts.js' %}"></script>
+    </body>
 </html>
