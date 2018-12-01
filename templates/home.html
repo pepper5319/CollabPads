@@ -4,6 +4,7 @@
     <head>
         <meta charset="utf-8">
         <title>CollabPads - Create and Share Lists</title>
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/CLogo.png' %}" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="google-site-verification" content="amgZp8hfg6HDdoJrQkwI5IWHy1uGHUTB9-A4rf-sIgE" />
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -14,8 +15,12 @@
         <link href='http://fonts.googleapis.com/css?family=Lato:300,400%7CRaleway:100,400,300,500,600,700%7COpen+Sans:400,500,600' rel='stylesheet' type='text/css'>
         <link href="http://fonts.googleapis.com/css?family=Roboto:100,300,400,600,700" rel="stylesheet" type="text/css">
         <link href="{% static 'css/font-roboto.css' %}" rel="stylesheet" type="text/css">
+        <style>
+        @media screen and (min-width: 0px) and (max-width: 720px) {
+          .mobile-hide{ display: none; }
+        }
+        </style>
     </head>
-
     <body>
 
 
@@ -28,7 +33,8 @@
 		        <div class="container v-align-transform">
 		            <div class="row">
 		                <div class="col-sm-12 text-center">
-		                    <h2 class="mb18 large uppercase">collabpads<br></h2>
+
+		                    <h2 class="mb18 large uppercase"><img alt="image" class="mobile-hide" style="margin-bottom: 15px; max-width: 100px;" src="{% static 'images/CLogo.png' %}"> collabpads<br></h2>
 		                    <h5 class="uppercase mb0 bold">create, share, and collaborate on lists<br></h5>
 		                </div>
 		            </div>
