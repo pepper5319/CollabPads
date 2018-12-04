@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('dashboard/', TemplateView.as_view(template_name='index.html')),
     path('listr_api/', include('api.urls')),
-    path('lists', views.shared_list)
+    path('lists', TemplateView.as_view(template_name='oneoff.html'))
 ]
 
 handler404 = views.handler404
