@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'wn^i-4lir!_l+412p@5h8zu6qiqm^jr31zk3dzjjqyl1xnmsr7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', 'localhost:8000', 'localhost:3000', 'collabpads.herokuapp.com']
 
@@ -172,5 +172,5 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static/'),
 )
 django_heroku.settings(locals())
-import dj_database_url
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+# import dj_database_url
+# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)

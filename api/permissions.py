@@ -1,5 +1,5 @@
 from rest_framework.permissions import BasePermission, AllowAny
-from .models import ListObject, Item, ListrUser
+from .models import ListObject, Item, ListrUser, OneOff
 
 #Is allowed to view list
 class IsListAllowed(BasePermission):
@@ -47,6 +47,10 @@ class IsItemAllowed(BasePermission):
                         return request.user.username == currentList.owner.username
                     else:
                         return request.user.username == currentList.owner.username or request.user in currentList.collaborators.all()
+            currentList = OneOff.objects.get(static_id=listId)
+            if(currentList):
+                if(guestAccess and guestAccess == 'True'):
+                    return True
             return False
         return False
 

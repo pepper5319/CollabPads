@@ -37,3 +37,12 @@ class Item(models.Model):
 
     def __str__(self):
         return "{}: {}".format(self.name, self.owner)
+
+class OneOff(models.Model):
+    name = models.CharField(max_length=255, default="New List")
+    static_id = models.CharField(max_length=6, primary_key=True, unique=True, null=False, blank=False)
+    private = models.BooleanField(default=False)
+    password = models.CharField(max_length=200, null=True, blank=True)
+
+    def __str__(self):
+        return "oneoff{}".format(self.static_id)

@@ -1,8 +1,8 @@
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, redirect
 from rest_framework import generics, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import ListObject, ListrUser
+from .models import ListObject, ListrUser, OneOff
 from .serializers import *
 from .permissions import *
 from django.contrib.auth.models import User
@@ -206,6 +206,12 @@ def shared_list(request):
         "token": "d0b7b2803369922e5e8e2716ec4f296b2f224bed"
     }
     return render(request, "list.html", ctx)
+
+def create_one_off(request):
+        static_id = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(6))
+        new_list = OneOff(static_id=static_id)
+        new_list.save()
+        return redirect('/lists?l={}'.format(static_id))
 
 def handler404(request, exception, template_name='404.html'):
     response = render(request, '404.html', {})
