@@ -30,7 +30,7 @@ class Item(models.Model):
     description = models.TextField(max_length=512, blank=True)
     liked_users = models.ManyToManyField(ListrUser, blank=True)
     liked_guests = models.IntegerField(default=0)
-    assigned_list = models.ForeignKey(ListObject, on_delete=models.CASCADE)
+    assigned_list = models.CharField(max_length=6, blank=False)
     owner = models.ForeignKey(ListrUser,  # ADD THIS FIELD
         related_name='items',
         on_delete=models.CASCADE)

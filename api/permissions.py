@@ -19,7 +19,14 @@ class IsListAllowed(BasePermission):
 class IsItemDetailAllowed(BasePermission):
     def has_object_permission(self, request, view, obj):
         if isinstance(obj, Item):
-            currentList = ListObject.objects.get(static_id=obj.assigned_list)
+            currentList = None
+            try:
+                currentList = ListObject.objects.get(static_id=obj.assigned_list)
+            except:
+                try:
+                    currentList = OneOff.objects.get(static_id=obj.assigned_list)
+                except:
+                    currentList = None
             if(currentList):
                 guestAccess = request.META['HTTP_GUEST']
                 if(guestAccess and guestAccess == 'True'):
@@ -35,8 +42,13 @@ class IsItemAllowed(BasePermission):
         listId = request.META['HTTP_LIST_ID']
         guestAccess = request.META['HTTP_GUEST']
         if(listId):
-            currentList = ListObject.objects.get(static_id=listId)
-            if(currentList):
+
+            currentList = None
+            try:
+                currentList = ListObject.objects.get(static_id=listId)
+            except:
+                currentList = None
+            if(currentList != None):
                 if(guestAccess and guestAccess == 'True'):
                     if(currentList.readOnly == True and request.method == "POST"):
                         return request.user.username == currentList.owner.username
@@ -47,10 +59,15 @@ class IsItemAllowed(BasePermission):
                         return request.user.username == currentList.owner.username
                     else:
                         return request.user.username == currentList.owner.username or request.user in currentList.collaborators.all()
-            currentList = OneOff.objects.get(static_id=listId)
-            if(currentList):
+
+            try:
+                currentList = OneOff.objects.get(static_id=listId)
+            except:
+                currentList = None
+            if(currentList != None):
                 if(guestAccess and guestAccess == 'True'):
                     return True
+
             return False
         return False
 

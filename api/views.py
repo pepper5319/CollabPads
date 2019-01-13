@@ -13,6 +13,7 @@ import string
 import json
 from django.template import RequestContext
 from rest_framework.permissions import AllowAny
+import hashlib
 
 # Create your views here.
 
@@ -65,16 +66,32 @@ class GetListDetail(generics.RetrieveUpdateDestroyAPIView):
         if(pk):
             currentList = ListObject.objects.get(static_id=pk)
             if(currentList):
-                currentList.collaborators.clear()
-                if(len(self.request.data['collabs']) > 0):
-                    for collab in self.request.data['collabs']:
-                        try:
-                            user = ListrUser.objects.get(username=collab);
-                            if user not in currentList.collaborators.all():
-                                currentList.collaborators.add(user)
-                        except ListrUser.DoesNotExist:
-                            print("User %s does not exists" % (collab))
+                if(self.request.data['collabs']):
+                    currentList.collaborators.clear()
+                    if(len(self.request.data['collabs']) > 0):
+                        for collab in self.request.data['collabs']:
+                            try:
+                                user = ListrUser.objects.get(username=collab);
+                                if user not in currentList.collaborators.all():
+                                    currentList.collaborators.add(user)
+                            except ListrUser.DoesNotExist:
+                                print("User %s does not exists" % (collab))
+                    currentList.save()
+                    return Response('Updated List {}'.format(pk))
+            currentList = OneOff.objects.get(static_id=pk)
+            if(currentList):
+                if(self.request.data['name'] and self.request.data['name'].strip() != ''):
+                    setattr(currentList, 'name', self.request.data['name'])
+                if(self.request.data['private'] != None):
+                    setattr(currentList, 'private', self.request.data['private'])
+                    if(self.request.data['private'] == False):
+                        currentList.password.clear()
+                    else:
+                        if(self.request.data['password']):
+                            hashed = hashlib.md5(self.request.data['password'].encode('utf-8')).hexdigest()
+                            setattr(currentList, 'private', hashed)
                 currentList.save()
+                return Response('Updated List {}'.format(pk))
 
             return Response('Updated List {}'.format(pk))
 
@@ -87,12 +104,23 @@ class CreateItemView(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticated, IsOwner, IsItemAllowed)
 
     def get_queryset(self):
-            list_id = self.request.META['HTTP_LIST_ID']
-            listItems = Item.objects.filter(assigned_list=list_id)
-            return listItems
+        list_id = self.request.META['HTTP_LIST_ID']
+        listItems = Item.objects.filter(assigned_list=list_id)
+        return listItems
 
     def perform_create(self, serializer):
-            serializer.save(owner=self.request.user, assigned_list=ListObject.objects.get(static_id=self.request.META['HTTP_LIST_ID']))
+        list = None
+        try:
+            list = ListObject.objects.get(static_id=self.request.META['HTTP_LIST_ID'])
+        except:
+            try:
+                list = OneOff.objects.get(static_id=self.request.META['HTTP_LIST_ID'])
+            except:
+                list = None
+        if(list):
+            serializer.save(owner=self.request.user, assigned_list=self.request.META['HTTP_LIST_ID'])
+
+
 
 
 class DetailsItemView(generics.RetrieveUpdateDestroyAPIView):
@@ -157,19 +185,22 @@ class KeyView(generics.UpdateAPIView):
 def shared_list(request):
     listId = request.GET.get('l', '')
 
-    itemUrl = 'https://collabpads.herokuapp.com/listr_api/items'
-    itemHeader = {'LIST-ID': listId, 'GUEST': 'True', 'Authorization': 'Token d0b7b2803369922e5e8e2716ec4f296b2f224bed '}
+    token = 'ce077fea6eab6d704138d9f271d37330f4b226a5' #dev
+    #token = 'd0b7b2803369922e5e8e2716ec4f296b2f224bed' #prod
 
-    # itemUrl = 'http://localhost:8000/listr_api/items'
-    # itemHeader = {'LIST-ID': listId, 'GUEST': 'True', 'Authorization': 'Token ce077fea6eab6d704138d9f271d37330f4b226a5 '}
+    # itemUrl = 'https://collabpads.herokuapp.com/listr_api/items'
+    # itemHeader = {'LIST-ID': listId, 'GUEST': 'True', 'Authorization': 'Token ' + token + ' '}
+
+    itemUrl = 'http://localhost:8000/listr_api/items'
+    itemHeader = {'LIST-ID': listId, 'GUEST': 'True', 'Authorization': 'Token ' + token + ' '}
 
     itemData = requests.get(itemUrl, headers=itemHeader)
 
-    listUrl = 'https://collabpads.herokuapp.com/listr_api/lists/%s/' % (listId)
-    listHeader = {'GUEST': 'True', 'Authorization': 'Token d0b7b2803369922e5e8e2716ec4f296b2f224bed '}
+    # listUrl = 'https://collabpads.herokuapp.com/listr_api/lists/%s/' % (listId)
+    # listHeader = {'GUEST': 'True', 'Authorization': 'Token ' + token + ' '}
 
-    # listUrl = 'http://localhost:8000/listr_api/lists/%s/' % (listId)
-    # listHeader = {'GUEST': 'True', 'Authorization': 'Token ce077fea6eab6d704138d9f271d37330f4b226a5 '}
+    listUrl = 'http://localhost:8000/listr_api/lists/%s/' % (listId)
+    listHeader = {'GUEST': 'True', 'Authorization': 'Token ' + token + ' '}
 
     listData = requests.get(listUrl, headers=listHeader)
 
@@ -190,20 +221,22 @@ def shared_list(request):
 
         data = json.dumps(data)
 
-        itemUrl = 'https://collabpads.herokuapp.com/listr_api/items/'
-        postHeader = {'GUEST': 'True', 'Authorization': 'Token d0b7b2803369922e5e8e2716ec4f296b2f224bed ', 'LIST-ID': listId, 'content-type': 'application/json'}
+        # itemUrl = 'https://collabpads.herokuapp.com/listr_api/items/'
+        # postHeader = {'GUEST': 'True', 'Authorization': 'Token ' + token + ' ', 'LIST-ID': listId, 'content-type': 'application/json'}
 
-        # itemUrl = 'http://localhost:8000/listr_api/items/'
-        # postHeader = {'GUEST': 'True', 'Authorization': 'Token ce077fea6eab6d704138d9f271d37330f4b226a5 ', 'LIST-ID': listId, 'content-type': 'application/json'}
+        itemUrl = 'http://localhost:8000/listr_api/items/'
+        postHeader = {'GUEST': 'True', 'Authorization': 'Token ' + token + ' ', 'LIST-ID': listId, 'content-type': 'application/json'}
 
         postData = requests.post(itemUrl, data=data, headers=postHeader)
 
         itemData = requests.get(itemUrl, headers=itemHeader)
         listData = requests.get(listUrl, headers=listHeader)
+
+
     ctx = {
         "list": listData.json(),
         "items": itemData.json(),
-        "token": "d0b7b2803369922e5e8e2716ec4f296b2f224bed"
+        "token": token
     }
     return render(request, "list.html", ctx)
 
