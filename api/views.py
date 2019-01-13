@@ -185,8 +185,8 @@ class KeyView(generics.UpdateAPIView):
 def shared_list(request):
     listId = request.GET.get('l', '')
 
-    token = 'ce077fea6eab6d704138d9f271d37330f4b226a5' #dev
-    #token = 'd0b7b2803369922e5e8e2716ec4f296b2f224bed' #prod
+    #token = 'ce077fea6eab6d704138d9f271d37330f4b226a5' #dev
+    token = 'd0b7b2803369922e5e8e2716ec4f296b2f224bed' #prod
 
     # itemUrl = 'https://collabpads.herokuapp.com/listr_api/items'
     # itemHeader = {'LIST-ID': listId, 'GUEST': 'True', 'Authorization': 'Token ' + token + ' '}
