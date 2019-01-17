@@ -12,6 +12,7 @@ import random
 import string
 import json
 from django.template import RequestContext
+from django.core import serializers
 from rest_framework.permissions import AllowAny
 import hashlib
 
@@ -62,11 +63,37 @@ class GetListDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ListSerializer
     permission_classes = (permissions.IsAuthenticated, IsListAllowed)
 
+    def get(self, request, pk):
+        if(pk):
+            print(pk)
+            list = None
+            serializer = None
+            try:
+                list = ListObject.objects.get(static_id=pk)
+                serializer = ListSerializer(list)
+            except:
+                try:
+                    list = OneOff.objects.get(static_id=pk)
+                    serializer = OneOffSerializer(list)
+                except:
+                    list = None
+                    serializer = None
+            if(list != None and serializer != None):
+                return Response(serializer.data)
+        return Response("None Found")
+
     def put(self, request, pk):
         if(pk):
-            currentList = ListObject.objects.get(static_id=pk)
-            if(currentList):
-                if(self.request.data['collabs']):
+            currentList = None
+            try:
+                currentList = ListObject.objects.get(static_id=pk)
+            except:
+                try:
+                    currentList = OneOff.objects.get(static_id=pk)
+                except:
+                    currentList = None
+            if(currentList != None):
+                if(self.request.data.get('collabs') != None):
                     currentList.collaborators.clear()
                     if(len(self.request.data['collabs']) > 0):
                         for collab in self.request.data['collabs']:
@@ -77,22 +104,23 @@ class GetListDetail(generics.RetrieveUpdateDestroyAPIView):
                             except ListrUser.DoesNotExist:
                                 print("User %s does not exists" % (collab))
                     currentList.save()
-                    return Response('Updated List {}'.format(pk))
-            currentList = OneOff.objects.get(static_id=pk)
-            if(currentList):
-                if(self.request.data['name'] and self.request.data['name'].strip() != ''):
+
+                if(self.request.data.get('readOnly') != None):
+                    setattr(currentList, 'readOnly', self.request.data['readOnly'])
+                    currentList.save()
+                if(self.request.data.get('name') != None and self.request.data['name'].strip() != ''):
                     setattr(currentList, 'name', self.request.data['name'])
-                if(self.request.data['private'] != None):
+                    currentList.save()
+                if(self.request.data.get('private') != None):
                     setattr(currentList, 'private', self.request.data['private'])
                     if(self.request.data['private'] == False):
                         currentList.password.clear()
                     else:
                         if(self.request.data['password']):
                             hashed = hashlib.md5(self.request.data['password'].encode('utf-8')).hexdigest()
-                            setattr(currentList, 'private', hashed)
-                currentList.save()
-                return Response('Updated List {}'.format(pk))
-
+                            setattr(currentList, 'password', hashed)
+                    currentList.save()
+                    return Response('Updated List {}'.format(pk))
             return Response('Updated List {}'.format(pk))
 
 
@@ -188,19 +216,19 @@ def shared_list(request):
     #token = 'ce077fea6eab6d704138d9f271d37330f4b226a5' #dev
     token = 'd0b7b2803369922e5e8e2716ec4f296b2f224bed' #prod
 
-    # itemUrl = 'https://collabpads.herokuapp.com/listr_api/items'
-    # itemHeader = {'LIST-ID': listId, 'GUEST': 'True', 'Authorization': 'Token ' + token + ' '}
-
-    itemUrl = 'http://localhost:8000/listr_api/items'
+    itemUrl = 'https://collabpads.herokuapp.com/listr_api/items'
     itemHeader = {'LIST-ID': listId, 'GUEST': 'True', 'Authorization': 'Token ' + token + ' '}
+
+    # itemUrl = 'http://localhost:8000/listr_api/items'
+    # itemHeader = {'LIST-ID': listId, 'GUEST': 'True', 'Authorization': 'Token ' + token + ' '}
 
     itemData = requests.get(itemUrl, headers=itemHeader)
 
-    # listUrl = 'https://collabpads.herokuapp.com/listr_api/lists/%s/' % (listId)
-    # listHeader = {'GUEST': 'True', 'Authorization': 'Token ' + token + ' '}
-
-    listUrl = 'http://localhost:8000/listr_api/lists/%s/' % (listId)
+    listUrl = 'https://collabpads.herokuapp.com/listr_api/lists/%s/' % (listId)
     listHeader = {'GUEST': 'True', 'Authorization': 'Token ' + token + ' '}
+
+    # listUrl = 'http://localhost:8000/listr_api/lists/%s/' % (listId)
+    # listHeader = {'GUEST': 'True', 'Authorization': 'Token ' + token + ' '}
 
     listData = requests.get(listUrl, headers=listHeader)
 
@@ -221,11 +249,11 @@ def shared_list(request):
 
         data = json.dumps(data)
 
-        # itemUrl = 'https://collabpads.herokuapp.com/listr_api/items/'
-        # postHeader = {'GUEST': 'True', 'Authorization': 'Token ' + token + ' ', 'LIST-ID': listId, 'content-type': 'application/json'}
-
-        itemUrl = 'http://localhost:8000/listr_api/items/'
+        itemUrl = 'https://collabpads.herokuapp.com/listr_api/items/'
         postHeader = {'GUEST': 'True', 'Authorization': 'Token ' + token + ' ', 'LIST-ID': listId, 'content-type': 'application/json'}
+
+        # itemUrl = 'http://localhost:8000/listr_api/items/'
+        # postHeader = {'GUEST': 'True', 'Authorization': 'Token ' + token + ' ', 'LIST-ID': listId, 'content-type': 'application/json'}
 
         postData = requests.post(itemUrl, data=data, headers=postHeader)
 
