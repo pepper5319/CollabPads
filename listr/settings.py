@@ -68,7 +68,8 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:8000',
-    'https://collabpads.herokuapp.com'
+    'https://collabpads.herokuapp.com',
+    'https://www.collabpads.com'
 )
 
 from corsheaders.defaults import default_headers
