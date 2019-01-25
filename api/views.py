@@ -213,22 +213,31 @@ class KeyView(generics.UpdateAPIView):
 def shared_list(request):
     listId = request.GET.get('l', '')
 
-    #token = 'ce077fea6eab6d704138d9f271d37330f4b226a5' #dev
-    token = 'd0b7b2803369922e5e8e2716ec4f296b2f224bed' #prod
+    itemUrl = None
+    itemHeader = None
+    listUrl = None
+    listHeader = None
+    postHeader = None
+    token = None
 
-    itemUrl = 'https://collabpads.herokuapp.com/listr_api/items'
-    itemHeader = {'LIST-ID': listId, 'GUEST': 'True', 'Authorization': 'Token ' + token + ' '}
+    IS_DEV = False # SWITCH TO FALSE FOR PRODUCTION
 
-    # itemUrl = 'http://localhost:8000/listr_api/items'
-    # itemHeader = {'LIST-ID': listId, 'GUEST': 'True', 'Authorization': 'Token ' + token + ' '}
+    if(IS_DEV):
+        token = 'ce077fea6eab6d704138d9f271d37330f4b226a5' #dev
+        itemUrl = 'http://localhost:8000/listr_api/items'
+        itemHeader = {'LIST-ID': listId, 'GUEST': 'True', 'Authorization': 'Token ' + token + ' '}
+        listUrl = 'http://localhost:8000/listr_api/lists/%s/' % (listId)
+        listHeader = {'GUEST': 'True', 'Authorization': 'Token ' + token + ' '}
+    else:
+        token = 'd0b7b2803369922e5e8e2716ec4f296b2f224bed' #prod
+        itemUrl = 'https://collabpads.herokuapp.com/listr_api/items'
+        itemHeader = {'LIST-ID': listId, 'GUEST': 'True', 'Authorization': 'Token ' + token + ' '}
+        listUrl = 'https://collabpads.herokuapp.com/listr_api/lists/%s/' % (listId)
+        listHeader = {'GUEST': 'True', 'Authorization': 'Token ' + token + ' '}
+        postHeader = {'GUEST': 'True', 'Authorization': 'Token ' + token + ' ', 'LIST-ID': listId, 'content-type': 'application/json'}
+
 
     itemData = requests.get(itemUrl, headers=itemHeader)
-
-    listUrl = 'https://collabpads.herokuapp.com/listr_api/lists/%s/' % (listId)
-    listHeader = {'GUEST': 'True', 'Authorization': 'Token ' + token + ' '}
-
-    # listUrl = 'http://localhost:8000/listr_api/lists/%s/' % (listId)
-    # listHeader = {'GUEST': 'True', 'Authorization': 'Token ' + token + ' '}
 
     listData = requests.get(listUrl, headers=listHeader)
 
@@ -248,12 +257,6 @@ def shared_list(request):
         }
 
         data = json.dumps(data)
-
-        itemUrl = 'https://collabpads.herokuapp.com/listr_api/items/'
-        postHeader = {'GUEST': 'True', 'Authorization': 'Token ' + token + ' ', 'LIST-ID': listId, 'content-type': 'application/json'}
-
-        # itemUrl = 'http://localhost:8000/listr_api/items/'
-        # postHeader = {'GUEST': 'True', 'Authorization': 'Token ' + token + ' ', 'LIST-ID': listId, 'content-type': 'application/json'}
 
         postData = requests.post(itemUrl, data=data, headers=postHeader)
 
