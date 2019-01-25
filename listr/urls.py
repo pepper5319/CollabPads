@@ -20,6 +20,8 @@ from api import views
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='home.html')),
+    path('login/', TemplateView.as_view(template_name='login.html')),
+    path('register/', TemplateView.as_view(template_name='register.html')),
     path('admin/', admin.site.urls),
     path('dashboard/', TemplateView.as_view(template_name='index.html')),
     path('listr_api/', include('api.urls')),
