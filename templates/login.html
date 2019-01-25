@@ -12,8 +12,8 @@
         <link href="{% static 'css/flexslider.css' %}" rel="stylesheet" type="text/css" media="all" />
         <link href="{% static 'css/theme.css' %}" rel="stylesheet" type="text/css" media="all" />
         <link href="{% static 'css/custom.css' %}" rel="stylesheet" type="text/css" media="all" />
-        <link href='http://fonts.googleapis.com/css?family=Lato:300,400%7CRaleway:100,400,300,500,600,700%7COpen+Sans:400,500,600' rel='stylesheet' type='text/css'>
-        <link href="http://fonts.googleapis.com/css?family=Roboto:100,300,400,600,700" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lato:300,400%7CRaleway:100,400,300,500,600,700%7COpen+Sans:400,500,600' rel='stylesheet' type='text/css'>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,600,700" rel="stylesheet" type="text/css">
         <link href="{% static 'css/font-roboto.css' %}" rel="stylesheet" type="text/css">
         <style>
         @media screen and (min-width: 0px) and (max-width: 720px) {
@@ -30,12 +30,11 @@
           <div class="container v-align-transform">
               <div class="row  justify-content-center">
                   <div class="col-md-6 col-sm-8 col-sm-offset-2">
+                    <a href="/">
+                      <h2 class="mb18 large uppercase"><img alt="image" class="mobile-hide" style="margin-bottom: 15px; max-width: 100px;" src="{% static 'images/CLogo.png' %}"> collabpads<br></h2>
+                    </a>
                       <div class="feature bordered text-center">
-
-                          <a href="/">
-                            <h2 class="mb18 large uppercase"><img alt="image" class="mobile-hide" style="margin-bottom: 15px; max-width: 100px;" src="{% static 'images/CLogo.png' %}"> collabpads<br></h2>
-                          </a>
-                          <h4 class="uppercase">Login</h4>
+                          <h4 class="uppercase">Login To CollabPads</h4>
                           <form onsubmit="userLogin(); return false;" class="text-left">
                               <input class="mb1" type="text" id="username" required placeholder="Username" />
                               <input class="mb1" type="password" id="password" required placeholder="Password" />
@@ -71,8 +70,7 @@
         }
       }
       function userLogin(){
-        const loginUrl = "https://www.collabpads.herokuapp.com/listr_api/auth/login/";
-        // const loginUrl = "http://localhost:8000/listr_api/auth/login/";
+        const loginUrl = "/listr_api/auth/login/";
         const data = {
           username: document.getElementById('username').value,
           password: document.getElementById('password').value
