@@ -21,7 +21,7 @@ class ListObject(models.Model):
     readOnly = models.BooleanField(default=False)
 
     def __str__(self):
-        return "{}".format(self.static_id)
+        return "{} - {}".format(self.name, self.static_id)
 
 
 class Item(models.Model):
@@ -36,7 +36,7 @@ class Item(models.Model):
         on_delete=models.CASCADE)
 
     def __str__(self):
-        return "{}: {}".format(self.name, self.owner)
+        return "{}: {}".format(self.name, self.assigned_list)
 
 class OneOff(models.Model):
     name = models.CharField(max_length=255, default="New List")
@@ -45,4 +45,4 @@ class OneOff(models.Model):
     password = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
-        return "oneoff{}".format(self.static_id)
+        return "{} - {}".format(self.name, self.static_id)

@@ -123,6 +123,25 @@ class GetListDetail(generics.RetrieveUpdateDestroyAPIView):
                     return Response('Updated List {}'.format(pk))
             return Response('Updated List {}'.format(pk))
 
+    def delete(self, request, pk):
+        if(pk):
+            currentList = None
+            try:
+                currentList = ListObject.objects.get(static_id=pk)
+            except:
+                try:
+                    currentList = OneOff.objects.get(static_id=pk)
+                except:
+                    currentList = None
+            if(currentList != None):
+                Item.objects.filter(assigned_list=pk).delete()
+                currentList.delete()
+                return Response('Removed List {}'.format(pk))
+            else:
+                return Response('Could Not Find List {}'.format(pk))
+        else:
+            return Response('Could Not Find List {}'.format(pk))
+
 
 """
 ITEM VIEWS
