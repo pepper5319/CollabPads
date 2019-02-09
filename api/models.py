@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User, AbstractUser
-
+from datetime import date
 class ListrUser(AbstractUser):
     def __str__(self):
         return "{}".format(self.username)
@@ -43,6 +43,7 @@ class OneOff(models.Model):
     static_id = models.CharField(max_length=6, primary_key=True, unique=True, null=False, blank=False)
     private = models.BooleanField(default=False)
     password = models.CharField(max_length=200, null=True, blank=True)
+    date_created = models.DateField(default=date.today)
 
     def __str__(self):
         return "{} - {}".format(self.name, self.static_id)
