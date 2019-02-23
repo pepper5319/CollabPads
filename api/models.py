@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User, AbstractUser
+import datetime
 from datetime import date
 class ListrUser(AbstractUser):
     def __str__(self):
@@ -26,6 +27,7 @@ class ListObject(models.Model):
 
 class Item(models.Model):
     name = models.CharField(max_length=255, blank=False)
+    time_added = models.DateTimeField(auto_now_add=True)
     static_id = models.CharField(max_length=8, blank=False, primary_key=True, unique=True)
     description = models.TextField(max_length=512, blank=True)
     liked_users = models.ManyToManyField(ListrUser, blank=True)

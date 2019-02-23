@@ -42,7 +42,6 @@ class IsItemAllowed(BasePermission):
         listId = request.META['HTTP_LIST_ID']
         guestAccess = request.META['HTTP_GUEST']
         if(listId):
-
             currentList = None
             try:
                 currentList = ListObject.objects.get(static_id=listId)
@@ -75,9 +74,11 @@ class IsItemAllowed(BasePermission):
 #Owner of Item or Owner of List item is in
 class IsOwner(BasePermission):
     def has_object_permission(self, request, view, obj):
+        print(request.user)
         if(str(request.user.username) in str(obj.assigned_list.owner)):
             return True
         if isinstance(obj, Item):
+            print(request.user)
             return obj.owner == request.user
         return obj.owner == request.user
 

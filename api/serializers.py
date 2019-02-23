@@ -24,7 +24,7 @@ class ItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Item
-        fields = ('static_id', 'name', 'description', 'owner', 'assigned_list', 'liked_users', 'liked_guests')
+        fields = ('static_id', 'name', 'description', 'owner', 'assigned_list', 'liked_users', 'liked_guests', 'time_added')
 
 class KeySerializer(serializers.ModelSerializer):
     class Meta:

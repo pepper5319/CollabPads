@@ -153,6 +153,7 @@ class CreateItemView(generics.ListCreateAPIView):
     def get_queryset(self):
         list_id = self.request.META['HTTP_LIST_ID']
         listItems = Item.objects.filter(assigned_list=list_id)
+        listItems = listItems.order_by('-time_added')
         return listItems
 
     def perform_create(self, serializer):
