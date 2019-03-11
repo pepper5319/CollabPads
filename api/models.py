@@ -20,6 +20,11 @@ class ListObject(models.Model):
         on_delete=models.CASCADE)
     collaborators = models.ManyToManyField(ListrUser, blank=True)
     readOnly = models.BooleanField(default=False)
+    background_image_url = models.CharField(max_length=200, blank=True)
+    background_image_download_url = models.CharField(max_length=200, blank=True)
+    background_image_owner = models.CharField(max_length=200, blank=True)
+    background_image_owner_url = models.CharField(max_length=200, blank=True)
+
 
     def __str__(self):
         return "{} - {}".format(self.name, self.static_id)

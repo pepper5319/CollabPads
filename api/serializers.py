@@ -8,7 +8,8 @@ class ListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ListObject
-        fields = ('static_id', 'name', 'owner', 'collaborators', 'readOnly')
+        fields = ('static_id', 'name', 'owner', 'collaborators', 'readOnly',
+                  'background_image_url', 'background_image_owner', 'background_image_owner_url')
 
 class OneOffSerializer(serializers.ModelSerializer):
 

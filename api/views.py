@@ -15,6 +15,7 @@ from django.template import RequestContext
 from django.core import serializers
 from rest_framework.permissions import AllowAny
 import hashlib
+from django.conf import settings
 
 # Create your views here.
 
@@ -33,6 +34,38 @@ class GetListsView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         newList = serializer.save(owner=self.request.user)
+        keywords = ['grocery', 'groceries', 'party', 'parties', 'wedding', 'lunch', 'coffee',
+                    'dinner']
+        if(self.request.data['name']):
+            words = self.request.data['name'].split(' ')
+            correctWord = None
+            for word in words:
+                if word.lower() in keywords:
+                    correctWord = word.lower()
+                    break
+            if(correctWord == None):
+                for word in words:
+                    if(len(word) > 4):
+                        correctWord = word.lower()
+                        break
+            if(correctWord is not None):
+                unsplash_url = f'https://api.unsplash.com/search/photos/?client_id={settings.UNSPLASH_ACCESS}&query={correctWord}&per_page=1'
+                backgroundData = requests.get(unsplash_url)
+                backgroundData = backgroundData.json()
+                setattr(newList, 'background_image_owner', f"{backgroundData['results'][0]['user']['name']}")
+                setattr(newList, 'background_image_owner_url', f"{backgroundData['results'][0]['user']['links']['html']}")
+                setattr(newList, 'background_image_download_url', f"{backgroundData['results'][0]['links']['download_location']}")
+                imageData = requests.get(f"{backgroundData['results'][0]['links']['download_location']}?client_id={settings.UNSPLASH_ACCESS}")
+                imageData = imageData.json()
+                setattr(newList, 'background_image_url', f"{imageData['url']}&w=400")
+                newList.save()
+            else:
+                setattr(newList, 'background_image_owner', f"Aleks Dorohovich")
+                setattr(newList, 'background_image_owner_url', f"https://unsplash.com/@aleksdorohovich")
+                setattr(newList, 'background_image_download_url', f"https://api.unsplash.com/photos/nJdwUHmaY8A/download")
+                setattr(newList, 'background_image_url', f"https://images.unsplash.com/3/doctype-hi-res.jpg?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjUyNDU1fQ")
+                newList.save()
+
         if(self.request.data['collabs']):
             for collab in self.request.data['collabs']:
                 try:
