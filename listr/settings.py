@@ -31,6 +31,7 @@ UNSPLASH_ACCESS = 'ea08b3d197ef1ea243fef4bcd0368b12e9f1472b72c1581a2b923dde0c288
 UNSPLASH_SECRET = 'f44ccbf92b618155b841de1243a9ce89014a0adb0e2a628e15cf534e15a4eea6'
 
 ALLOWED_HOSTS = ['localhost', 'localhost:8000', 'localhost:3000', 'collabpads.herokuapp.com']
+# ALLOWED_HOSTS = ['*']
 
 SITE_ID = 1
 
@@ -67,13 +68,13 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
-# CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = True
 
-CORS_ORIGIN_WHITELIST = (
-    'http://localhost:8000',
-    'https://collabpads.herokuapp.com',
-    'https://www.collabpads.com'
-)
+# CORS_ORIGIN_WHITELIST = (
+#     'http://localhost:8000',
+#     'https://collabpads.herokuapp.com',
+#     'https://www.collabpads.com'
+# )
 
 from corsheaders.defaults import default_headers
 
@@ -175,6 +176,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'oneoff/static/'),
     os.path.join(BASE_DIR, 'static/'),
 )
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
 # import dj_database_url
 # DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
