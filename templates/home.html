@@ -17,7 +17,10 @@
         <link href="{% static 'css/font-roboto.css' %}" rel="stylesheet" type="text/css">
         <style>
         @media screen and (min-width: 0px) and (max-width: 720px) {
-          .mobile-hide{ display: none; }
+          .mobile-hide{ display: none !important; }
+        }
+        @media screen and (min-width: 991px) {
+          .mobile-show{ display: none !important; }
         }
         .btn-filled{
           background: #43a047 !important;
@@ -36,9 +39,9 @@
     </head>
     <body>
       <div class="nav-container">
-      		    <nav class="absolute transparent">
+      		    <nav class="absolute dark">
       		        <div class="nav-bar">
-      		            <div class="module widget-handle mobile-toggle right visible-sm visible-xs">
+      		            <div class="mobile-show module widget-handle mobile-toggle right visible-sm visible-xs">
       		                <i class="fa fa-navicon"></i>
       		            </div>
       		            <div class="module-group right">
@@ -60,22 +63,22 @@
       		</div>
 
       		<div class="main-container">
-      		<section class="cover fullscreen image-bg overlay parallax">
+      		<section class="cover fullscreen image-bg parallax">
       		        <div class="background-image-holder">
       		            <img alt="image" class="background-image" src="{% static 'images/mainBG.jpg' %}">
       		        </div>
       		        <div class="container v-align-transform">
       		            <div class="row">
       		                <div class="col-sm-12 text-center">
-      		                    <h1 class="uppercase mb16"><img alt="image" class="mobile-hide" style="margin-bottom: 15px; max-width: 100px;" src="{% static 'images/CLogo.png' %}"> CollabPads</h1>
-      		                    <h5 class="uppercase mb0">Create, Share, And Collaborate on lists<br></h5>
+      		                    <h1 style='color: black;'class="uppercase mb16"><img alt="image" class="mobile-hide" style="margin-bottom: 15px; max-width: 100px;" src="{% static 'images/CLogo.png' %}"> CollabPads</h1>
+      		                    <h5 style='color: black;'class="uppercase mb0">Create, Share, And Collaborate on lists<br></h5>
       		                </div>
       		            </div>
 
       		        </div>
 
       		        <div class="align-bottom relative-xs text-center">
-      		            <a class="btn btn-lg mb32 mt-xs-40" href="/register/">Start Using CollabPads </a>
+      		            <a style='color: black; border-color: black;' class="btn btn-lg mb32 mt-xs-40" href="/register/">Start Using CollabPads </a>
                       <a class="btn btn-filled btn-lg mb32 mt-xs-40" href="/listr_api/create_one_off/">Create Quick Pad </a>
       		        </div>
       		    </section>
