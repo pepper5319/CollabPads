@@ -13,7 +13,8 @@ urlpatterns = [
     path('items/<pk>/', DetailsItemView.as_view(), name='itemdetails'),
     path('users/', CurrentUserView.as_view(), name="user"),
     path('keys/<pk>/', KeyView.as_view(), name="key"),
-    path('create_one_off/', create_one_off, name='one_off')
+    path('create_one_off/', create_one_off, name='one_off'),
+    path('get_one_off/', CreateOneOffView.as_view(), name='one_off_api')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns = format_suffix_patterns(urlpatterns)

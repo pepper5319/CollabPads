@@ -345,6 +345,15 @@ def create_one_off(request):
         new_list.save()
         return redirect('/lists?l={}'.format(static_id))
 
+class CreateOneOffView(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request):
+        static_id = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(6))
+        new_list = OneOff(static_id=static_id)
+        new_list.save()
+        return Response({"pad_id": str(new_list.static_id)})
+
 def handler404(request, exception, template_name='404.html'):
     response = render(request, '404.html', {})
     response.status_code = 404
