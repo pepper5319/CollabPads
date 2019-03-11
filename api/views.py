@@ -53,6 +53,8 @@ class GetListsView(generics.ListCreateAPIView):
                 unsplash_url = f'https://api.unsplash.com/search/photos/?client_id={settings.UNSPLASH_ACCESS}&query={correctWord}&per_page=10'
                 backgroundData = requests.get(unsplash_url)
                 backgroundData = backgroundData.json()
+
+                print(randPicNum, len(backgroundData['results']))
                 setattr(newList, 'background_image_owner', f"{backgroundData['results'][randPicNum]['user']['name']}")
                 setattr(newList, 'background_image_owner_url', f"{backgroundData['results'][randPicNum]['user']['links']['html']}")
                 setattr(newList, 'background_image_download_url', f"{backgroundData['results'][randPicNum]['links']['download_location']}")
