@@ -49,13 +49,14 @@ class GetListsView(generics.ListCreateAPIView):
                         correctWord = word.lower()
                         break
             if(correctWord is not None):
-                unsplash_url = f'https://api.unsplash.com/search/photos/?client_id={settings.UNSPLASH_ACCESS}&query={correctWord}&per_page=1'
+                randPicNum = random.randint(0, 10)
+                unsplash_url = f'https://api.unsplash.com/search/photos/?client_id={settings.UNSPLASH_ACCESS}&query={correctWord}&per_page=10'
                 backgroundData = requests.get(unsplash_url)
                 backgroundData = backgroundData.json()
-                setattr(newList, 'background_image_owner', f"{backgroundData['results'][0]['user']['name']}")
-                setattr(newList, 'background_image_owner_url', f"{backgroundData['results'][0]['user']['links']['html']}")
-                setattr(newList, 'background_image_download_url', f"{backgroundData['results'][0]['links']['download_location']}")
-                imageData = requests.get(f"{backgroundData['results'][0]['links']['download_location']}?client_id={settings.UNSPLASH_ACCESS}")
+                setattr(newList, 'background_image_owner', f"{backgroundData['results'][randPicNum]['user']['name']}")
+                setattr(newList, 'background_image_owner_url', f"{backgroundData['results'][randPicNum]['user']['links']['html']}")
+                setattr(newList, 'background_image_download_url', f"{backgroundData['results'][randPicNum]['links']['download_location']}")
+                imageData = requests.get(f"{backgroundData['results'][randPicNum]['links']['download_location']}?client_id={settings.UNSPLASH_ACCESS}")
                 imageData = imageData.json()
                 setattr(newList, 'background_image_url', f"{imageData['url']}&w=400")
                 newList.save()
