@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'wn^i-4lir!_l+412p@5h8zu6qiqm^jr31zk3dzjjqyl1xnmsr7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
 UNSPLASH_ACCESS = 'ea08b3d197ef1ea243fef4bcd0368b12e9f1472b72c1581a2b923dde0c288350'
 UNSPLASH_SECRET = 'f44ccbf92b618155b841de1243a9ce89014a0adb0e2a628e15cf534e15a4eea6'
@@ -68,13 +68,13 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = True
 
-# CORS_ORIGIN_WHITELIST = (
-#     'http://localhost:8000',
-#     'https://collabpads.herokuapp.com',
-#     'https://www.collabpads.com'
-# )
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:8000',
+    'https://collabpads.herokuapp.com',
+    'https://www.collabpads.com'
+)
 
 from corsheaders.defaults import default_headers
 
@@ -176,6 +176,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'oneoff/static/'),
     os.path.join(BASE_DIR, 'static/'),
 )
-# django_heroku.settings(locals())
-# import dj_database_url
-# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+django_heroku.settings(locals())
+import dj_database_url
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
