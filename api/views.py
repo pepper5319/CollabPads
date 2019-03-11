@@ -49,7 +49,7 @@ class GetListsView(generics.ListCreateAPIView):
                         correctWord = word.lower()
                         break
             if(correctWord is not None):
-                randPicNum = random.randint(0, 10)
+                randPicNum = random.randint(0, 9)
                 unsplash_url = f'https://api.unsplash.com/search/photos/?client_id={settings.UNSPLASH_ACCESS}&query={correctWord}&per_page=10'
                 backgroundData = requests.get(unsplash_url)
                 backgroundData = backgroundData.json()
