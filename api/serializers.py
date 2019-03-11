@@ -15,7 +15,7 @@ class OneOffSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = OneOff
-        fields = ('static_id', 'name', 'private', 'password')
+        fields = ('static_id', 'name', 'private')
 
 class ItemSerializer(serializers.ModelSerializer):
 
