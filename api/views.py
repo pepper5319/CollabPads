@@ -259,6 +259,14 @@ class CurrentUserView(APIView):
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
 
+    def delete(self, request):
+        user = request.user
+        lists = ListObject.objects.filter(owner=user)
+        for list in lists:
+            Item.objects.filter(assigned_list=list.static_id).delete()
+            list.delete()
+        user.delete()
+        return Response('DELETED USER {}'.format(user.username))
 
 class KeyView(generics.UpdateAPIView):
     """This class handles the http GET, PUT and DELETE requests."""
